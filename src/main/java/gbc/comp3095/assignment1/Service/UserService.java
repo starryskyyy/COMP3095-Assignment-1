@@ -32,10 +32,10 @@ public class UserService {
 
     public User updateUser(User user) {
 
-        Optional<User> optionaluser = userRepository.findById(user.getId());
+        Optional<User> optionalUser = userRepository.findById(user.getId());
         User oldUser = null;
-        if(optionaluser.isPresent()) {
-            oldUser = optionaluser.get();
+        if(optionalUser.isPresent()) {
+            oldUser = optionalUser.get();
             oldUser.setFirstName(user.getFirstName());
             oldUser.setLastName(user.getLastName());
             oldUser.setUsername(user.getUsername());
