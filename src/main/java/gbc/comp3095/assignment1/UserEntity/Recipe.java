@@ -21,6 +21,9 @@ public class Recipe {
     private String description;
     private String instruction;
 
+    @ManyToOne
+    private User user;
+
     @ManyToMany
     @JoinTable(
         name = "recipes_ingredients",
