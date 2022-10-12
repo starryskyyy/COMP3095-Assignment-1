@@ -26,7 +26,7 @@ public class Recipe {
 
     @ManyToMany
     @JoinTable(
-        name = "recipes_ingredients",
+        name = "recipe_ingredient",
         joinColumns = @JoinColumn(name = "recipe_id"),
         inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
