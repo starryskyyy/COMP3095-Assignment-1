@@ -27,6 +27,15 @@ public class RecipeController {
         return recipeService.getRecipeById(id);
     }
 
+    // TODOS:
+    // updateRecipe
+    // delete recipeIngredient together when deleting recipe and ingredient
+
+    @PutMapping("/updateRecipe")
+    public Recipe updateRecipe(@RequestBody Recipe recipe) {
+        return recipeService.updateRecipe(recipe);
+    }
+
     @DeleteMapping("/recipe/{id}")
     public String deleteRecipe(@PathVariable int id) {
         return recipeService.deleteRecipeById(id);

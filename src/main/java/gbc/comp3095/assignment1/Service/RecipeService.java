@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +42,26 @@ public class RecipeService {
 
     public Recipe getRecipeById(int id) {
         return recipeRepository.findById(id).orElse(null);
+    }
+
+    public Recipe updateRecipe(Recipe recipe) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipe.getId());
+        Recipe newRecipe = null;
+
+        if (optionalRecipe.isPresent()) {
+            newRecipe = optionalRecipe.get();
+            newRecipe.setName(recipe.getName());
+            newRecipe.setUser(recipe.getUser());
+            newRecipe.setDescription(recipe.getDescription());
+            newRecipe.setInstruction(recipe.getInstruction());
+            newRecipe.setIngredients(recipe.getIngredients());
+
+            recipeRepository.save(newRecipe);
+        } else {
+            return new Recipe();
+        }
+
+        return newRecipe;
     }
 
     // TODOS:
