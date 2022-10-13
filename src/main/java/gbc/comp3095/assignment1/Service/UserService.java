@@ -34,7 +34,7 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(user.getId());
         User newUser = null;
 
-        if(optionalUser.isPresent()) {
+        if (optionalUser.isPresent()) {
             newUser = optionalUser.get();
             newUser.setFirstName(user.getFirstName());
             newUser.setLastName(user.getLastName());
@@ -45,7 +45,7 @@ public class UserService {
             newUser.setBirthday(user.getBirthday());
 
             userRepository.save(newUser);
-        }else{
+        } else {
             return new User();
         }
 
