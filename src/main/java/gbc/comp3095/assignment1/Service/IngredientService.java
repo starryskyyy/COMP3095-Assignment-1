@@ -40,11 +40,11 @@ public class IngredientService {
         if (optionalIngredient.isPresent()) {
             newIngredient = optionalIngredient.get();
             newIngredient.setName(ingredient.getName());
+
+            ingredientRepository.save(newIngredient);
         } else {
             return new Ingredient();
         }
-
-        ingredientRepository.save(newIngredient);
 
         return newIngredient;
     }
