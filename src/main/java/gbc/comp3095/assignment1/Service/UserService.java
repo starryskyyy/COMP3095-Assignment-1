@@ -32,20 +32,24 @@ public class UserService {
 
     public User updateUser(User user) {
         Optional<User> optionalUser = userRepository.findById(user.getId());
-        User oldUser = null;
+        User newUser = null;
+
         if(optionalUser.isPresent()) {
-            oldUser = optionalUser.get();
-            oldUser.setFirstName(user.getFirstName());
-            oldUser.setLastName(user.getLastName());
-            oldUser.setUsername(user.getUsername());
-            oldUser.setPassword(user.getPassword());
-            oldUser.setEmail(user.getEmail());
-            oldUser.setAddress(user.getAddress());
-            oldUser.setBirthday(user.getBirthday());
+            newUser = optionalUser.get();
+            newUser.setFirstName(user.getFirstName());
+            newUser.setLastName(user.getLastName());
+            newUser.setUsername(user.getUsername());
+            newUser.setPassword(user.getPassword());
+            newUser.setEmail(user.getEmail());
+            newUser.setAddress(user.getAddress());
+            newUser.setBirthday(user.getBirthday());
+
+            userRepository.save(newUser);
         }else{
             return new User();
         }
-        return oldUser;
+
+        return newUser;
     }
 
     public String deleteUserById(int id) {
