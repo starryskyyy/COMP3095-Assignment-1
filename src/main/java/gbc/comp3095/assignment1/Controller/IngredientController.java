@@ -30,6 +30,10 @@ public class IngredientController {
         return ingredientService.getIngredients();
     }
 
+    @GetMapping("/ingredient/{id}")
+    public Ingredient getIngredientById(@PathVariable int id) {
+        return ingredientService.getIngredientById(id);
+    }
 
     @PutMapping("/updateIngredient")
     public Ingredient updateIngredient(@RequestBody Ingredient ingredient) {
