@@ -1,11 +1,13 @@
 package gbc.comp3095.assignment1.Service;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
+import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IngredientService {
@@ -31,4 +33,19 @@ public class IngredientService {
     // TODOS:
     // updateIngredient
     // deleteIngredient
+    public Ingredient updateIngredient(Ingredient ingredient) {
+        Optional<Ingredient> optionalIngredient = ingredientRepository.findById(ingredient.getId());
+        Ingredient newIngredient = null;
+
+        if (optionalIngredient.isPresent()) {
+            newIngredient = optionalIngredient.get();
+            newIngredient.setName(ingredient.getName());
+        } else {
+            return new Ingredient();
+        }
+
+        ingredientRepository.save(newIngredient);
+
+        return newIngredient;
+    }
 }
