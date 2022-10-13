@@ -1,12 +1,10 @@
-package gbc.comp3095.assignment1.UserEntity;
+package gbc.comp3095.assignment1.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -18,7 +16,4 @@ public class Ingredient {
     @GeneratedValue
     private int id;
     private String name;
-
-    @ManyToMany(mappedBy = "ingredients")
-    private List<Recipe> recipes = new ArrayList<>();
 }

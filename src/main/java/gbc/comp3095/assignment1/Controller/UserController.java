@@ -1,7 +1,7 @@
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Service.UserService;
-import gbc.comp3095.assignment1.UserEntity.User;
+import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +16,11 @@ public class UserController {
     @PostMapping("/addUser")
     public User addUser(@RequestBody User user) {
         return userService.createUser(user);
+    }
+
+    @PostMapping("/addUsers")
+    public List<User> addUsers(@RequestBody List<User> users) {
+        return userService.createUsers(users);
     }
 
     @GetMapping("/user/{id}")

@@ -1,4 +1,4 @@
-package gbc.comp3095.assignment1.UserEntity;
+package gbc.comp3095.assignment1.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

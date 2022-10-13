@@ -1,4 +1,4 @@
-package gbc.comp3095.assignment1.UserEntity;
+package gbc.comp3095.assignment1.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,15 +24,6 @@ public class Recipe {
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-        name = "recipe_ingredient",
-        joinColumns = @JoinColumn(name = "recipe_id"),
-        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
-    private List<Ingredient> ingredients = new ArrayList<>();
-
-    public void addIngredient(Ingredient ingredient) {
-        this.ingredients.add(ingredient);
-    }
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<RecipeIngredient> ingredients = new ArrayList<>();
 }
