@@ -35,4 +35,9 @@ public class IngredientController {
     public Ingredient updateIngredient(@RequestBody Ingredient ingredient) {
         return ingredientService.updateIngredient(ingredient);
     }
+
+    @DeleteMapping("/ingredient/{id}")
+    public String deleteIngredient(@RequestBody int id) {
+        return ingredientService.deleteIngredientById(id);
+    }
 }

@@ -30,9 +30,6 @@ public class IngredientService {
         return ingredientRepository.findById(id).orElse(null);
     }
 
-    // TODOS:
-    // updateIngredient
-    // deleteIngredient
     public Ingredient updateIngredient(Ingredient ingredient) {
         Optional<Ingredient> optionalIngredient = ingredientRepository.findById(ingredient.getId());
         Ingredient newIngredient = null;
@@ -47,5 +44,10 @@ public class IngredientService {
         }
 
         return newIngredient;
+    }
+
+    public String deleteIngredientById(int id) {
+        ingredientRepository.deleteById(id);
+        return "Ingredient has been deleted.";
     }
 }
