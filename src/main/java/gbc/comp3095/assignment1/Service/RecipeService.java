@@ -43,5 +43,8 @@ public class RecipeService {
     // getRecipesByUserId
     // getRecipeById
     // updateRecipe
-    // deleteRecipe
+    public String deleteRecipeById(int id) {
+        recipeRepository.deleteById(id);
+        return "Recipe has been deleted.";
+    }
 }
