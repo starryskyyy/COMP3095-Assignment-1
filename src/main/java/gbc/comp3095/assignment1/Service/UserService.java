@@ -31,7 +31,6 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-
         Optional<User> optionalUser = userRepository.findById(user.getId());
         User oldUser = null;
         if(optionalUser.isPresent()) {
