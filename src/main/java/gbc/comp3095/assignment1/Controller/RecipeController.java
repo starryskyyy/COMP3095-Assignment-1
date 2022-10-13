@@ -22,8 +22,13 @@ public class RecipeController {
         return recipeService.getRecipes();
     }
 
+    @GetMapping("/recipe/{id}")
+    public Recipe getRecipeById(@PathVariable int id) {
+        return recipeService.getRecipeById(id);
+    }
+
     @DeleteMapping("/recipe/{id}")
-    public String deleteRecipe(@RequestBody int id) {
+    public String deleteRecipe(@PathVariable int id) {
         return recipeService.deleteRecipeById(id);
     }
 }

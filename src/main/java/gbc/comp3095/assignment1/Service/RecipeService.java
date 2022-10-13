@@ -39,6 +39,10 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
+    public Recipe getRecipeById(int id) {
+        return recipeRepository.findById(id).orElse(null);
+    }
+
     // TODOS:
     // getRecipesByUserId
     // getRecipeById
