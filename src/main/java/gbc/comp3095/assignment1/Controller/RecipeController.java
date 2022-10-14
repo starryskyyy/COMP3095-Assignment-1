@@ -17,6 +17,11 @@ public class RecipeController {
         return recipeService.createRecipe(recipe);
     }
 
+    @PostMapping("/addRecipes")
+    public List<Recipe> addRecipes(@RequestBody List<Recipe> recipes) {
+        return recipeService.createRecipes(recipes);
+    }
+
     @GetMapping("/recipes")
     public List<Recipe> getAllRecipes() {
         return recipeService.getRecipes();

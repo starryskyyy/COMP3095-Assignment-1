@@ -21,7 +21,7 @@ public class RecipeService {
     @Autowired
     private IngredientService ingredientService;
 
-    public Recipe createRecipe(Recipe recipe) {
+    private Recipe populateRecipe(Recipe recipe) {
         Recipe newRecipe = new Recipe();
         newRecipe.setName(recipe.getName());
         newRecipe.setDescription(recipe.getDescription());
@@ -34,7 +34,17 @@ public class RecipeService {
             return newRi;
         }).collect(Collectors.toList()));
 
+        return newRecipe;
+    }
+
+    public Recipe createRecipe(Recipe recipe) {
+        Recipe newRecipe = populateRecipe(recipe);
         return recipeRepository.save(newRecipe);
+    }
+
+    public List<Recipe> createRecipes(List<Recipe> recipes) {
+        List<Recipe> newRecipes = recipes.stream().map(this::populateRecipe).collect(Collectors.toList());
+        return recipeRepository.saveAll(newRecipes);
     }
 
     public List<Recipe> getRecipes() {
