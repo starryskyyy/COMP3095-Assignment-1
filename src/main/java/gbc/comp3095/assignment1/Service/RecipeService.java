@@ -78,10 +78,6 @@ public class RecipeService {
         return newRecipe;
     }
 
-    // TODOS:
-    // getRecipesByUserId
-    // getRecipeById
-    // updateRecipe
     public String deleteRecipeById(int id) {
         recipeRepository.deleteById(id);
         return "Recipe has been deleted.";
