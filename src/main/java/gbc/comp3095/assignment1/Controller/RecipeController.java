@@ -32,7 +32,7 @@ public class RecipeController {
         return recipeService.getRecipeById(id);
     }
 
-    @GetMapping("recipes/{userId}")
+    @GetMapping("recipes/user/{userId}")
     public List<Recipe> getAllRecipesByUserId(@PathVariable int userId) {
         return recipeService.getRecipeByUserId(userId);
     }
