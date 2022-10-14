@@ -1,12 +1,13 @@
 package gbc.comp3095.assignment1.Service;
 
-import gbc.comp3095.assignment1.Entity.Ingredient;
 import gbc.comp3095.assignment1.Entity.RecipeIngredient;
 import gbc.comp3095.assignment1.Repository.RecipeRepository;
 import gbc.comp3095.assignment1.Entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +43,19 @@ public class RecipeService {
 
     public Recipe getRecipeById(int id) {
         return recipeRepository.findById(id).orElse(null);
+    }
+
+    public List<Recipe> getRecipeByUserId(int userId) {
+        List<Recipe> newRecipe = new ArrayList<>();
+        List<Recipe> recipes = recipeRepository.findAll();
+
+        for (Recipe recipe: recipes) {
+            if (recipe.getUser().getId() == userId) {
+                newRecipe.add(recipe);
+            }
+        }
+
+        return newRecipe;
     }
 
     public Recipe updateRecipe(Recipe recipe) {
