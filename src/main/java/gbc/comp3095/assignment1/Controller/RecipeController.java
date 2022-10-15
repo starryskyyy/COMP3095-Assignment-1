@@ -2,6 +2,7 @@ package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Recipe;
 import gbc.comp3095.assignment1.Service.RecipeService;
+import gbc.comp3095.assignment1.Utils.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,12 @@ public class RecipeController {
 
     @GetMapping("/recipe/{id}")
     public Recipe getRecipeById(@PathVariable int id) {
-        return recipeService.getRecipeById(id);
+        Recipe recipe = recipeService.getRecipeById(id);
+        if (recipe == null) {
+            throw new CustomException("Recipe id not found - " + id);
+        }
+
+        return recipe;
     }
 
     @GetMapping("recipes/user/{userId}")

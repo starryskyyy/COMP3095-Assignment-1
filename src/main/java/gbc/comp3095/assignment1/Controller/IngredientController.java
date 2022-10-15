@@ -1,10 +1,8 @@
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
-import gbc.comp3095.assignment1.Entity.Recipe;
-import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.IngredientService;
-import gbc.comp3095.assignment1.Service.RecipeService;
+import gbc.comp3095.assignment1.Utils.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +30,12 @@ public class IngredientController {
 
     @GetMapping("/ingredient/{id}")
     public Ingredient getIngredientById(@PathVariable int id) {
-        return ingredientService.getIngredientById(id);
+        Ingredient ingredient = ingredientService.getIngredientById(id);
+        if (ingredient == null) {
+            throw new CustomException("Ingredient id not found - " + id);
+        }
+
+        return ingredient;
     }
 
     @PutMapping("/updateIngredient")
