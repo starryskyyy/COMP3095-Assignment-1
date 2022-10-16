@@ -1,7 +1,7 @@
 package gbc.comp3095.assignment1.Service;
 
 import gbc.comp3095.assignment1.Repository.UserRepository;
-import gbc.comp3095.assignment1.UserEntity.User;
+import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class UserService {
         return userRepository.saveAll(users);
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -49,7 +49,7 @@ public class UserService {
         return oldUser;
     }
 
-    public String deleteUserById(int id) {
+    public String deleteUserById(Long id) {
         userRepository.deleteById(id);
         return "User has been deleted.";
     }
