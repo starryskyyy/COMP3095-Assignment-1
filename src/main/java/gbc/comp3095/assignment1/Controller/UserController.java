@@ -1,7 +1,7 @@
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Service.UserService;
-import gbc.comp3095.assignment1.UserEntity.User;
+import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable int id) {
+    public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public String deleteUser(@PathVariable int id) {
+    public String deleteUser(@PathVariable Long id) {
         return userService.deleteUserById(id);
     }
 }
