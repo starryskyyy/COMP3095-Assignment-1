@@ -30,10 +30,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(int id) {
-        return userRepository.findById(id).orElse(null);
-    }
-
     public User updateUser(User user) {
         Optional<User> optionalUser = userRepository.findById(user.getId());
         User newUser = null;
