@@ -2,7 +2,6 @@ package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Entity.User;
-import gbc.comp3095.assignment1.Utils.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +24,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable int id) {
-        User user = userService.getUserById(id);
-        if (user == null) {
-            throw new CustomException("User id not found - " + id);
-        }
-
-        return user;
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
     @GetMapping("/users")
@@ -45,7 +39,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public String deleteUser(@PathVariable int id) {
+    public String deleteUser(@PathVariable Long id) {
         return userService.deleteUserById(id);
     }
 }

@@ -22,6 +22,10 @@ public class UserService {
         return userRepository.saveAll(users);
     }
 
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     public List<User> getUsers() {
         return userRepository.findAll();
     }
@@ -52,7 +56,7 @@ public class UserService {
         return newUser;
     }
 
-    public String deleteUserById(int id) {
+    public String deleteUserById(Long id) {
         userRepository.deleteById(id);
         return "User has been deleted.";
     }
