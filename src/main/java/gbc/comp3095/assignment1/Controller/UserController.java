@@ -1,18 +1,31 @@
 package gbc.comp3095.assignment1.Controller;
 
+import gbc.comp3095.assignment1.Repository.UserRepository;
 import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Utils.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepo;
+
+    @RequestMapping(path = "/home")
+    public ModelAndView index () {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("home.html");
+        return modelAndView;
+    }
 
     @PostMapping("/addUser")
     public User addUser(@RequestBody User user) {
