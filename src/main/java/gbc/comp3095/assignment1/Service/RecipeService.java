@@ -68,6 +68,10 @@ public class RecipeService {
         return newRecipe;
     }
 
+    public List<Recipe> getRecipesByName(String name) {
+        return recipeRepository.findByNameContaining(name);
+    }
+
     public Recipe updateRecipe(Recipe recipe) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(recipe.getId());
         Recipe newRecipe = null;

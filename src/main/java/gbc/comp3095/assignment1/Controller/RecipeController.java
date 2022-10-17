@@ -38,6 +38,11 @@ public class RecipeController {
         return recipe;
     }
 
+    @GetMapping("/recipe/{name}")
+    public List<Recipe> searchRecipesByName(@PathVariable String name) {
+        return recipeService.getRecipesByName(name);
+    }
+
     @GetMapping("recipes/user/{userId}")
     public List<Recipe> getAllRecipesByUserId(@PathVariable int userId) {
         return recipeService.getRecipeByUserId(userId);
