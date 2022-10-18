@@ -6,6 +6,7 @@ import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Utils.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepo;
 
+    @GetMapping("/")
+    public String viewHomePage() {
+        return "index";
+    }
+
     @RequestMapping(path = "/home")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
@@ -32,39 +38,19 @@ public class UserController {
     }
 
     @GetMapping(path = "/signup")
-    public ModelAndView signupGet() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("signup.html");
-        return modelAndView;
+    public String signupGet(Model model) {
+        model.addAttribute("user", new User());
+        return "signup";
     }
+
 
     @PostMapping(path = "/signup")
-    public void signupPost(
-            @RequestParam("username") String username,
-            @RequestParam("firstname") String firstname,
-            @RequestParam("lastname") String lastname,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("address") String address,
-            @RequestParam("birthday") String birthday
-    ) {
-        User user = new User();
-        user.setUsername(username);
-        user.setFirstName(firstname);
-        user.setLastName(lastname);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setAddress(address);
-        user.setBirthday(birthday);
-        user.setEnabled(true);
-        user.getRoles().add(new Role(1));
-
-        userService.createUser(user);
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model) {
-        return "login";
+    public String signupPost(User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        userRepo.save(user);
+        return "index";
     }
 
     @PostMapping("/addUser")
