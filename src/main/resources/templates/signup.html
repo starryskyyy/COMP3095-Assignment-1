@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
 </head>
 <body>
-
+    <form method="POST" th:action="@{/signup}" class="form-signup">
+        <div class="bg-light p-5" style="border-radius: 5%;">
+            <label class="form-label pt-3" for="username">Username</label>
+            <input id="username" name="username" type="text" class="form-control" placeholder="Username" />
+            <label class="form-label pt-3" for="firstname">first name</label>
+            <input id="firstname" name="firstname" type="text" class="form-control mb-3" placeholder="First name" />
+            <label class="form-label pt-3" for="lastname">Last name</label>
+            <input id="lastname" name="lastname" type="text" class="form-control mb-3" placeholder="Last Name" />
+            <label class="form-label pt-3" for="email">Email</label>
+            <input id="email" name="email" type="email" class="form-control mb-3" placeholder="Email" />
+            <label class="form-label pt-3" for="password">Password</label>
+            <input id="password" name="password" type="password" class="form-control mb-3" placeholder="********" />
+            <label class="form-label pt-3" for="address">Address</label>
+            <input id="address" name="address" type="text" class="form-control mb-3" placeholder="5700 Yonge St." />
+            <label class="form-label pt-3" for="birthday">Date of Birth</label>
+            <input id="birthday" name="birthday" type="date" class="form-control mb-3" />
+        </div>
+        <div class="d-grid col-8 mx-auto">
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+    </form>
 </body>
 </html>

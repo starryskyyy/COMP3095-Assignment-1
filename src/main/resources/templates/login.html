@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="ISO-8859-1">
 
@@ -20,11 +20,11 @@
       <div class="bg-light p-5" style="border-radius: 5%;">
         <h2 class="text-center"><b>Log in</b></h2>
 
-        <label class="form-label pt-3">User Name</label>
-        <input name="username" type="text" class="form-control" placeholder="Username"
+        <label class="form-label pt-3" for="username">User Name</label>
+        <input id="username" name="username" type="text" class="form-control" placeholder="Username"
                  autofocus="true"/>
-        <label class="form-label pt-3">Password</label>
-        <input name="password" type="password" class="form-control mb-3" placeholder="****"/>
+        <label class="form-label pt-3" for="password">Password</label>
+        <input id="password" name="password" type="password" class="form-control mb-3" placeholder="****"/>
 
         <div class="alert alert-danger text-center mt-3" th:if="${param.error}" >
           Invalid username or password
@@ -34,7 +34,7 @@
           <button type="submit" class="btn btn-dark">Sign In</button>
         </div>
         <div class="d-grid col-8 mx-auto pt-3">
-          <button type="submit" class="btn btn-dark">Sign Up</button>
+          <a class="btn btn-dark" href="/signup">Sign Up</a>
         </div>
 
       </div>

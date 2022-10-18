@@ -1,5 +1,6 @@
 package gbc.comp3095.assignment1.Controller;
 
+import gbc.comp3095.assignment1.Entity.Role;
 import gbc.comp3095.assignment1.Repository.UserRepository;
 import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Entity.User;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,17 +25,41 @@ public class UserController {
     private UserRepository userRepo;
 
     @RequestMapping(path = "/home")
-    public ModelAndView index () {
+    public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home.html");
         return modelAndView;
     }
 
-    @RequestMapping(path = "/signup")
-    public ModelAndView signup () {
+    @GetMapping(path = "/signup")
+    public ModelAndView signupGet() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("signup.html");
         return modelAndView;
+    }
+
+    @PostMapping(path = "/signup")
+    public void signupPost(
+            @RequestParam("username") String username,
+            @RequestParam("firstname") String firstname,
+            @RequestParam("lastname") String lastname,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("address") String address,
+            @RequestParam("birthday") String birthday
+    ) {
+        User user = new User();
+        user.setUsername(username);
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setAddress(address);
+        user.setBirthday(birthday);
+        user.setEnabled(true);
+        user.getRoles().add(new Role(1));
+
+        userService.createUser(user);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
