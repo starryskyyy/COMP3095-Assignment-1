@@ -1,7 +1,6 @@
 package gbc.comp3095.assignment1.Service;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
-import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

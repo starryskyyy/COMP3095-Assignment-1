@@ -1,21 +1,44 @@
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Recipe;
+import gbc.comp3095.assignment1.Service.IngredientService;
 import gbc.comp3095.assignment1.Service.RecipeService;
+import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Utils.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
-@RestController
+@Controller
 public class RecipeController {
     @Autowired
     private RecipeService recipeService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private IngredientService ingredientService;
+
+    @GetMapping("/addRecipe")
+    public String addRecipeGet(Model model) {
+        model.addAttribute("recipe", new Recipe());
+        model.addAttribute("ingredients", ingredientService.getIngredients());
+        return "add_recipe";
+    }
 
     @PostMapping("/addRecipe")
-    public Recipe addRecipe(@RequestBody Recipe recipe) {
-        return recipeService.createRecipe(recipe);
+    public String addRecipePost(Recipe recipe) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        recipe.setUser(userService.getUserByUsername(username));
+        recipeService.createRecipe(recipe);
+
+        return "home";
     }
 
     @PostMapping("/addRecipes")

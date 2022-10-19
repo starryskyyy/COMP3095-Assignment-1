@@ -4,7 +4,6 @@ import gbc.comp3095.assignment1.Entity.RecipeIngredient;
 import gbc.comp3095.assignment1.Repository.RecipeRepository;
 import gbc.comp3095.assignment1.Entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

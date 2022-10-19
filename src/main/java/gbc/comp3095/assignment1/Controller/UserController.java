@@ -12,12 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.List;
 
 @Controller
 public class UserController {
+    private boolean created = false;
 
     @Autowired
     private UserService userService;
@@ -30,7 +29,7 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping(path = "/home")
+    @GetMapping("/home")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home.html");
@@ -39,6 +38,25 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
+        User user = new User();
+        if (created == false) {
+            // for testing purpose
+            user.setUsername("user");
+            user.setPassword("ps");
+            user.setAddress("");
+            user.setBirthday("");
+            user.setFirstName("");
+            user.setLastName("");
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            user.getRoles().add(new Role(1));
+            userService.createUser(user);
+
+            created = true;
+        }
+
         return "login";
     }
 
@@ -55,7 +73,7 @@ public class UserController {
         user.setPassword(encodedPassword);
         user.getRoles().add(new Role(1));
         userService.createUser(user);
-        return "home";
+        return "login";
     }
 
     @PostMapping("/addUser")
