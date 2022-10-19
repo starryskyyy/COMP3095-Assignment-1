@@ -22,6 +22,9 @@
       <div class="alert alert-danger text-center mt-3" th:if="${param.error}" >
         Invalid username or password
       </div>
+      <div class="alert text-center mt-3" th:if="${param.logout}" >
+        Successfully logged out!
+      </div>
 
       <label class="form-label pt-3" for="username">User Name</label>
       <input id="username" name="username" type="text" class="form-control" placeholder="Username"

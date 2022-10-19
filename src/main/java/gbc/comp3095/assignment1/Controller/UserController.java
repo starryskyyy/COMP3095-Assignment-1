@@ -37,12 +37,16 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping(path = "/signup")
     public String signupGet(Model model) {
         model.addAttribute("user", new User());
         return "signup";
     }
-
 
     @PostMapping(path = "/signup")
     public String signupPost(User user) {
@@ -51,7 +55,7 @@ public class UserController {
         user.setPassword(encodedPassword);
         user.getRoles().add(new Role(1));
         userService.createUser(user);
-        return "index";
+        return "home";
     }
 
     @PostMapping("/addUser")
