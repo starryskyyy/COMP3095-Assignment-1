@@ -49,7 +49,8 @@ public class UserController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        userRepo.save(user);
+        user.getRoles().add(new Role(1));
+        userService.createUser(user);
         return "index";
     }
 
