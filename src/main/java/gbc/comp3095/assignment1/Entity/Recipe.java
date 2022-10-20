@@ -20,10 +20,13 @@ public class Recipe {
     private String name;
     private String description;
     private String instruction;
+    @Lob
+    @Column(name = "image", length = Integer.MAX_VALUE, nullable = true)
+    private String imageFile;
 
     @ManyToOne
     private User user;
 
     @OneToMany(cascade=CascadeType.ALL)
-    private List<RecipeIngredient> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 }

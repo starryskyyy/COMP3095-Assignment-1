@@ -1,6 +1,5 @@
 package gbc.comp3095.assignment1.Service;
 
-import gbc.comp3095.assignment1.Entity.RecipeIngredient;
 import gbc.comp3095.assignment1.Repository.RecipeRepository;
 import gbc.comp3095.assignment1.Entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -20,30 +18,8 @@ public class RecipeService {
     @Autowired
     private IngredientService ingredientService;
 
-    private Recipe populateRecipe(Recipe recipe) {
-        Recipe newRecipe = new Recipe();
-        newRecipe.setName(recipe.getName());
-        newRecipe.setDescription(recipe.getDescription());
-        newRecipe.setInstruction(recipe.getInstruction());
-        newRecipe.setUser(userService.getUserById(recipe.getUser().getId()));
-        newRecipe.getIngredients().addAll(recipe.getIngredients().stream().map(ri -> {
-            RecipeIngredient newRi = new RecipeIngredient();
-            newRi.setIngredient(ingredientService.getIngredientById(ri.getIngredient().getId()));
-            newRi.setAmount(ri.getAmount());
-            return newRi;
-        }).collect(Collectors.toList()));
-
-        return newRecipe;
-    }
-
     public Recipe createRecipe(Recipe recipe) {
-        Recipe newRecipe = populateRecipe(recipe);
-        return recipeRepository.save(newRecipe);
-    }
-
-    public List<Recipe> createRecipes(List<Recipe> recipes) {
-        List<Recipe> newRecipes = recipes.stream().map(this::populateRecipe).collect(Collectors.toList());
-        return recipeRepository.saveAll(newRecipes);
+        return recipeRepository.save(recipe);
     }
 
     public List<Recipe> getRecipes() {

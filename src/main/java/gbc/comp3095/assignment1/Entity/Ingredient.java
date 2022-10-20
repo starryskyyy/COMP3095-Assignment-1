@@ -16,4 +16,5 @@ public class Ingredient {
     @GeneratedValue
     private int id;
     private String name;
+    private String amount;
 }

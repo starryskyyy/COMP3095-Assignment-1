@@ -8,8 +8,9 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form method="POST" th:action="@{/addRecipe}" th:object="${recipe}" class="form-signup">
+<form method="POST" th:action="@{/addRecipe}" th:object="${recipe}" class="form-signup" enctype="multipart/form-data">
     <div class="bg-light p-5" style="border-radius: 5%;">
+        <input id="image" type="file" name="image" accept="image/*">
         <label class="form-label pt-3" for="name">Recipe Name</label>
         <input id="name" name="name" type="text" class="form-control mb-3" th:field="*{name}" placeholder="Recipe Name" />
         <label class="form-label pt-3" for="description">Description</label>

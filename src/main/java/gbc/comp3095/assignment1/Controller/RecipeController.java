@@ -11,8 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.security.Principal;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -27,28 +29,27 @@ public class RecipeController {
     @GetMapping("/addRecipe")
     public String addRecipeGet(Model model) {
         model.addAttribute("recipe", new Recipe());
-        model.addAttribute("ingredients", ingredientService.getIngredients());
+//        model.addAttribute("ingredients", ingredientService.getIngredients());
         return "add_recipe";
     }
 
     @PostMapping("/addRecipe")
-    public String addRecipePost(Recipe recipe) {
+    public String addRecipePost(Recipe recipe, @RequestParam("image") MultipartFile imageFile) throws IOException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         recipe.setUser(userService.getUserByUsername(username));
+        byte[] encodedFile = Base64.getEncoder().encode(imageFile.getBytes());
+        String encodedFileString = new String(encodedFile, "UTF-8");
+        recipe.setImageFile(encodedFileString);
         recipeService.createRecipe(recipe);
 
         return "home";
     }
 
-    @PostMapping("/addRecipes")
-    public List<Recipe> addRecipes(@RequestBody List<Recipe> recipes) {
-        return recipeService.createRecipes(recipes);
-    }
-
     @GetMapping("/recipes")
-    public List<Recipe> getAllRecipes() {
-        return recipeService.getRecipes();
+    public String getAllRecipes(Model model) {
+        model.addAttribute("recipes", recipeService.getRecipes());
+        return "recipes";
     }
 
     @GetMapping("/recipe/{id}")
