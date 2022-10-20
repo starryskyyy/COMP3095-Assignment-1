@@ -24,11 +24,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepo;
 
-    @GetMapping("/")
-    public String viewHomePage() {
-        return "index";
-    }
-
     @GetMapping("/home")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();

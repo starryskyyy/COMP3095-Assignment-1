@@ -31,6 +31,12 @@ public class RecipeController {
 
     private int ingredientLength = 1;
 
+    @GetMapping("/")
+    public String viewHomePage(Model model) {
+        model.addAttribute("recipes", recipeService.getRecipes());
+        return "index";
+    }
+
     @GetMapping("/addRecipe")
     public String addRecipeGet(Model model) {
         Recipe recipe = new Recipe();
