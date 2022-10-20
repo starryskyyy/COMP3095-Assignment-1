@@ -10,6 +10,13 @@
         <h3><a th:href="@{/register}">Register</a></h3>
         <h3><a th:href="@{/login}">Login</a></h3>
     </div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
+
+    <div sec:authorize="hasAnyAuthority('USER')">
+        <a href="/addRecipe">Add Recipe</a>
+    </div>
 
 </body>
 </html>

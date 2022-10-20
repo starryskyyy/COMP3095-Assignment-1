@@ -17,6 +17,17 @@
         <textarea id="description" name="description" type="text" class="form-control mb-3" th:field="*{description}" placeholder="Description"></textarea>
         <label class="form-label pt-3" for="instruction">Instruction</label>
         <textarea id="instruction" name="instruction" type="text" class="form-control mb-3" th:field="*{instruction}" placeholder="Instruction"></textarea>
+
+        <ul>
+            <li th:each="ingredient, i : *{ingredients}">
+                <div>
+                    <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) Onion"></input>
+                    <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) 300g"></input>
+                </div>
+            </li>
+        </ul>
+
+        <a href="/addIngredientBox">add ingredient</a>
     </div>
     <div class="d-grid col-8 mx-auto">
         <button type="submit" class="btn btn-dark">Submit</button>

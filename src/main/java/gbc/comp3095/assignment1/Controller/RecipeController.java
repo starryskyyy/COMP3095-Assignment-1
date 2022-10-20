@@ -1,5 +1,6 @@
 package gbc.comp3095.assignment1.Controller;
 
+import gbc.comp3095.assignment1.Entity.Ingredient;
 import gbc.comp3095.assignment1.Entity.Recipe;
 import gbc.comp3095.assignment1.Service.IngredientService;
 import gbc.comp3095.assignment1.Service.RecipeService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -26,24 +29,44 @@ public class RecipeController {
     @Autowired
     private IngredientService ingredientService;
 
+    private int ingredientLength = 1;
+
     @GetMapping("/addRecipe")
     public String addRecipeGet(Model model) {
-        model.addAttribute("recipe", new Recipe());
-//        model.addAttribute("ingredients", ingredientService.getIngredients());
+        Recipe recipe = new Recipe();
+
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (int i = 0; i < ingredientLength; ++i) {
+            ingredients.add(new Ingredient());
+        }
+
+        recipe.setIngredients(ingredients);
+        model.addAttribute("recipe", recipe);
         return "add_recipe";
     }
 
     @PostMapping("/addRecipe")
     public String addRecipePost(Recipe recipe, @RequestParam("image") MultipartFile imageFile) throws IOException {
+        ingredientLength = 1;
+
+        // Inserting current logged in user into Recipe
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         recipe.setUser(userService.getUserByUsername(username));
+        // Encoding Image
         byte[] encodedFile = Base64.getEncoder().encode(imageFile.getBytes());
-        String encodedFileString = new String(encodedFile, "UTF-8");
+        String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
         recipe.setImageFile(encodedFileString);
+
         recipeService.createRecipe(recipe);
 
-        return "home";
+        return "redirect:";
+    }
+
+    @GetMapping("/addIngredientBox")
+    public String addIngredientBox() {
+        ingredientLength++;
+        return "redirect:addRecipe";
     }
 
     @GetMapping("/recipes")
