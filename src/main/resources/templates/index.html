@@ -5,23 +5,20 @@
 <head th:replace="fragments :: html_head">
 </head>
 <body>
-<div th:replace="fragments :: header">
-</div>
-<div class="container text-center">
-    <h3><a th:href="@{/register}">Register</a></h3>
-    <h3><a th:href="@{/login}">Login</a></h3>
-</div>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
-</form>
+    <div th:replace="fragments :: header">
+    </div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
 
-<div sec:authorize="hasAnyAuthority('USER')">
-    <a href="/addRecipe">Add Recipe</a>
-</div>
-
-<tr th:each="recipe : ${recipes}">
-    <td><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}" width="500" height="600"></td>
-</tr>
+    <div sec:authorize="hasAnyAuthority('USER')">
+        <a href="/addRecipe">Add Recipe</a>
+    </div>
+    <div class="container">
+        <tr th:each="recipe : ${recipes}">
+            <td><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}" width="300" height="300"></td>
+        </tr>
+    </div>
 
 </body>
 </html>

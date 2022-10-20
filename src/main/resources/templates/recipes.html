@@ -6,7 +6,7 @@
 </head>
 <body>
 <tr th:each="recipe : ${recipes}">
-    <td><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></td>
+    <td><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}" width="500" height="600"></td>
 </tr>
 </body>
 </html>
