@@ -18,13 +18,7 @@
 
   <form method="POST" th:action="@{/login}" class="form-signin">
     <div class="bg-light p-5" style="border-radius: 5%;">
-      <h2 class="text-center"><b>Log in</b></h2>
-      <div class="alert alert-danger text-center mt-3" th:if="${param.error}" >
-        Invalid username or password
-      </div>
-      <div class="alert text-center mt-3" th:if="${param.logout}" >
-        Successfully logged out!
-      </div>
+      <h2 class="text-center"><b>LOGIN</b></h2>
 
       <label class="form-label pt-3" for="username">User Name</label>
       <input id="username" name="username" type="text" class="form-control" placeholder="Username"
@@ -32,11 +26,19 @@
       <label class="form-label pt-3" for="password">Password</label>
       <input id="password" name="password" type="password" class="form-control mb-3" placeholder="****"/>
 
+      <div class="alert alert-danger text-center mt-3" th:if="${param.error}" >
+        Invalid Username or Password
+      </div>
+      <div class="alert text-center mt-3" th:if="${param.logout}" >
+        Successfully logged out!
+      </div>
+
       <div class="d-grid col-8 mx-auto">
         <button type="submit" class="btn btn-dark">Sign In</button>
       </div>
-      <div class="d-grid col-8 mx-auto pt-3">
-        <a class="btn btn-dark" href="/signup">Sign Up</a>
+      <div class="d-grid col-8 mx-auto pt-3 text-center">
+        <h6>Need an account?</h6>
+        <a class="text-reset" href="/signup">Sign Up</a>
       </div>
 
     </div>
