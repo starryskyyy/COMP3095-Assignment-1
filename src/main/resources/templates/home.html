@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-  <meta charset="ISO-8859-1">
-  <title>User Information</title>
+<head th:replace="fragments :: html_head">
 </head>
 <body>
-<div align="center">
-  <h1>Home page</h1>
+    <div th:replace="fragments :: header">
+    </div>
+    <div align="center">
+      <h1>Home page</h1>
 
-  <div sec:authorize="isAuthenticated()">
-    <h1>Welcome</h1>
-  </div>
+      <div sec:authorize="isAuthenticated()">
+        <h1>Welcome</h1>
+      </div>
 
-  <form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
-  </form>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+      </form>
 
-  <div sec:authorize="hasAnyAuthority('USER')">
-    <a href="/addRecipe">Add Recipe</a>
-  </div>
-</div>
+      <div sec:authorize="hasAnyAuthority('USER')">
+        <a href="/addRecipe">Add Recipe</a>
+      </div>
+    </div>
 </body>
 </html>
