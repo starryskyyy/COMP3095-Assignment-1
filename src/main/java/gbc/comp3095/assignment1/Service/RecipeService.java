@@ -13,10 +13,6 @@ import java.util.Optional;
 public class RecipeService {
     @Autowired
     private RecipeRepository recipeRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private IngredientService ingredientService;
 
     public Recipe createRecipe(Recipe recipe) {
         return recipeRepository.save(recipe);

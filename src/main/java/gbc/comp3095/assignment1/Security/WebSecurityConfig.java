@@ -36,22 +36,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").hasAnyAuthority("USER")
+                .antMatchers("/").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                .antMatchers("/signup").permitAll()
+                .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").and()
+                .logout().logoutSuccessUrl("/")
+                .and()
                 .exceptionHandling().accessDeniedPage("/403");
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/signup");
-        web.ignoring().antMatchers("/");
-    }
+
 }
