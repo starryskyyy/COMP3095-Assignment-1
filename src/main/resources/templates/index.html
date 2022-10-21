@@ -7,17 +7,15 @@
 <body>
     <div th:replace="fragments :: header">
     </div>
-    <form th:action="@{/logout}" method="post">
+    <!--<form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout" />
-    </form>
-
-    <div sec:authorize="hasAnyAuthority('USER')">
-        <a href="/addRecipe">Add Recipe</a>
-    </div>
+    </form>-->
     <div class="container">
-        <tr th:each="recipe : ${recipes}">
-            <td><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}" width="300" height="300"></td>
-        </tr>
+        <div id="view_recipe">
+            <div th:each="recipe : ${recipes}">
+                <img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}">
+            </div>
+        </div>
     </div>
 
 </body>
