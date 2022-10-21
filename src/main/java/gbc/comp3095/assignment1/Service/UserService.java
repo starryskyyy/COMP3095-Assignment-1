@@ -47,6 +47,7 @@ public class UserService {
             newUser.setEmail(user.getEmail());
             newUser.setAddress(user.getAddress());
             newUser.setBirthday(user.getBirthday());
+            newUser.setFavoriteRecipes(user.getFavoriteRecipes());
 
             userRepository.save(newUser);
         } else {

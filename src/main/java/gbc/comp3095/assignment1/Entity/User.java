@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,6 +29,9 @@ public class User {
     private String email;
     private String address;
     private String birthday;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Recipe> favoriteRecipes;
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",

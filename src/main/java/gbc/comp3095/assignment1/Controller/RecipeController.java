@@ -2,6 +2,7 @@ package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
 import gbc.comp3095.assignment1.Entity.Recipe;
+import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.IngredientService;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.UserService;
@@ -71,17 +72,30 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/{id}")
-    public Recipe getRecipeById(@PathVariable int id) {
-        Recipe recipe = recipeService.getRecipeById(id);
-        if (recipe == null) {
-            throw new CustomException("Recipe id not found - " + id);
+    public String getRecipeById(Model model, @ModelAttribute("recipe") Recipe previousRecipe, @PathVariable int id) {
+        Recipe recipe = previousRecipe;
+        if (recipe.getName() == null) {
+            recipe = recipeService.getRecipeById(id);
+            if (recipe == null) {
+                throw new CustomException("Recipe id not found - " + id);
+            }
         }
-
-        return recipe;
+        model.addAttribute("recipe", recipe);
+        return "view_recipe";
     }
 
-    @GetMapping("/recipe/{name}")
-    public List<Recipe> searchRecipesByName(@PathVariable String name) {
-        return recipeService.getRecipesByName(name);
+    @PostMapping("/recipe")
+    public String addFavoriteRecipe(Recipe recipe, RedirectAttributes redirectAttributes) {
+        // Getting currently logged-in user
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User user = userService.getUserByUsername(username);
+        user.getFavoriteRecipes().add(recipe);
+
+        userService.updateUser(user);
+
+        System.out.println(recipe);
+        redirectAttributes.addFlashAttribute("recipe", recipe);
+        return "redirect:recipe/" + recipe.getId() + "?added=true";
     }
 }
