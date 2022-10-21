@@ -3,7 +3,6 @@ package gbc.comp3095.assignment1.Controller;
 import gbc.comp3095.assignment1.Entity.Ingredient;
 import gbc.comp3095.assignment1.Entity.Recipe;
 import gbc.comp3095.assignment1.Entity.User;
-import gbc.comp3095.assignment1.Service.IngredientService;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Utils.CustomException;
@@ -18,9 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 @Controller
 public class RecipeController {
