@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -26,10 +27,6 @@ public class RecipeController {
     private RecipeService recipeService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private IngredientService ingredientService;
-
-    private int ingredientLength = 1;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -38,24 +35,14 @@ public class RecipeController {
     }
 
     @GetMapping("/addRecipe")
-    public String addRecipeGet(Model model) {
-        Recipe recipe = new Recipe();
-
-        List<Ingredient> ingredients = new ArrayList<>();
-        for (int i = 0; i < ingredientLength; ++i) {
-            ingredients.add(new Ingredient());
-        }
-
-        recipe.setIngredients(ingredients);
-        model.addAttribute("recipe", recipe);
+    public String addRecipeGet(Model model, @ModelAttribute("recipe") Recipe previousRecipe) {
+        model.addAttribute("recipe", previousRecipe);
         return "add_recipe";
     }
 
-    @PostMapping("/addRecipe")
+    @PostMapping(value = "/addRecipe", params = "submit")
     public String addRecipePost(Recipe recipe, @RequestParam("image") MultipartFile imageFile) throws IOException {
-        ingredientLength = 1;
-
-        // Inserting current logged in user into Recipe
+        // Inserting current logged-in user into Recipe
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         recipe.setUser(userService.getUserByUsername(username));
@@ -69,9 +56,11 @@ public class RecipeController {
         return "redirect:";
     }
 
-    @GetMapping("/addIngredientBox")
-    public String addIngredientBox() {
-        ingredientLength++;
+    @PostMapping(value = "/addRecipe", params = "addbox")
+    public String addIngredientBox(Recipe recipe, RedirectAttributes redirectAttributes) {
+        recipe.getIngredients().add(new Ingredient());
+
+        redirectAttributes.addFlashAttribute("recipe", recipe);
         return "redirect:addRecipe";
     }
 
@@ -94,20 +83,5 @@ public class RecipeController {
     @GetMapping("/recipe/{name}")
     public List<Recipe> searchRecipesByName(@PathVariable String name) {
         return recipeService.getRecipesByName(name);
-    }
-
-    @GetMapping("recipes/user/{userId}")
-    public List<Recipe> getAllRecipesByUserId(@PathVariable int userId) {
-        return recipeService.getRecipeByUserId(userId);
-    }
-
-    @PutMapping("/updateRecipe")
-    public Recipe updateRecipe(@RequestBody Recipe recipe) {
-        return recipeService.updateRecipe(recipe);
-    }
-
-    @DeleteMapping("/recipe/{id}")
-    public String deleteRecipe(@PathVariable int id) {
-        return recipeService.deleteRecipeById(id);
     }
 }
