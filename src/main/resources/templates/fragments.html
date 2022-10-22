@@ -8,8 +8,8 @@
 
     <title>RecipeShare</title>
 
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <!--Bootstrap CSS-->
@@ -30,6 +30,12 @@
                                     <a class="nav-link" href="/addRecipe">Create Recipe</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="#">My Recipes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Favorite</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="#">Plan Meal</a>
                                 </li>
                             </th:block>
@@ -44,6 +50,7 @@
                     <a href="/signup"><button class="btn btn-dark mx-2" style="border-radius: 20px; width: 100px;">Register</button></a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
+                    <a href="/view_profile"><button class="btn btn-sm mx-2"><div sec:authentication="name"></div></button></a>
                     <a href="/logout"><button class="btn btn-dark mx-2" style="border-radius: 20px; width: 100px;">Logout</button></a>
                 </div>
             </div>
