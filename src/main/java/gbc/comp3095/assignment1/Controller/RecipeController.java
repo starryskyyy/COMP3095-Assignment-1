@@ -2,6 +2,7 @@ package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
 import gbc.comp3095.assignment1.Entity.Recipe;
+import gbc.comp3095.assignment1.Entity.Role;
 import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.UserService;
@@ -10,6 +11,7 @@ import gbc.comp3095.assignment1.Utils.ImageParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class RecipeController {
@@ -30,22 +31,58 @@ public class RecipeController {
 
     private boolean created = false;
 
+    private void addDefaultUsers() {
+        List<List<String>> information = new ArrayList<>();
+        information.add(Arrays.asList("user", "user", "user", "ps", "user@gmail.com", "130 User st."));
+        information.add(Arrays.asList("hoonie", "Seunghun", "Yim", "ps", "yimsh@gmail.com", "5700 Yonge st."));
+        information.add(Arrays.asList("danny", "Danny", "Nguyen", "ps", "danny@gmail.com", "124 Dundas st."));
+        information.add(Arrays.asList("yoonie", "Yoonhee", "Kim", "ps", "yoonie@gmail.com", "232 Jarvis st."));
+        information.add(Arrays.asList("lisa", "Elizaveta", "Vygovskaia", "ps", "liz@gmail.com", "3433 Richmond st."));
+
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 5; ++i) {
+            User user = new User().populateInfo(information.get(i));
+            user.setId(i + 1L);
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            user.getRoles().add(new Role(1));
+
+            users.add(user);
+        }
+
+        userService.createUsers(users);
+    }
+
     private void addDefaultRecipes() {
+        Random random = new Random();
+        List<User> users = userService.getUsers();
+
         List<byte[]> images = new ImageParser().getImageBytes();
-        for (byte[] image : images) {
+        for (int i = 0; i < images.size(); ++i) {
             Recipe recipe = new Recipe();
-            byte[] encodedFile = Base64.getEncoder().encode(image);
+            byte[] encodedFile = Base64.getEncoder().encode(images.get(i));
             String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
             recipe.setImageFile(encodedFileString);
+
+            recipe.setName("Recipe" + (i + 1));
+            recipe.setDescription("Description" + (i + 1));
+            recipe.setInstruction("Instruction" + (i + 1));
+            recipe.setUser(users.get(random.nextInt(users.size())));
+
             recipeService.createRecipe(recipe);
         }
-        created = true;
     }
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
         // default recipes
-        if (!created) addDefaultRecipes();
+        if (!created) {
+            addDefaultUsers();
+            addDefaultRecipes();
+            created = true;
+        }
 
         model.addAttribute("recipes", recipeService.getRecipes());
         return "index";

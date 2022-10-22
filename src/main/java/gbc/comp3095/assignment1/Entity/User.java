@@ -3,6 +3,8 @@ package gbc.comp3095.assignment1.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +29,7 @@ public class User {
     private String password;
     private String email;
     private String address;
-    private String birthday;
+    private LocalDateTime birthday;
 
     @ManyToMany(cascade=CascadeType.ALL)
     private Set<Recipe> favoriteRecipes;
@@ -45,6 +47,7 @@ public class User {
         this.password = info.get(3);
         this.email = info.get(4);
         this.address = info.get(5);
+        this.birthday = LocalDateTime.now();
 
         return this;
     }

@@ -15,13 +15,13 @@ public class ImageParser {
     public ImageParser() {
         try {
             // Setting default image
-            File file = ResourceUtils.getFile("classpath:images/default.png");
+            File file = ResourceUtils.getFile("classpath:default_images/default.png");
             FileInputStream fileInputStream = new FileInputStream(file);
             defaultImage = fileInputStream.readAllBytes();
 
             // Setting default images for testing
             for (int i = 1; i <= 10; i++) {
-                file = ResourceUtils.getFile("classpath:images/image" + i + ".jpg");
+                file = ResourceUtils.getFile("classpath:default_images/image" + i + ".jpg");
                 fileInputStream = new FileInputStream(file);
                 imageBytes.add(fileInputStream.readAllBytes());
             }

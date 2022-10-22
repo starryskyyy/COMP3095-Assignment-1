@@ -3,8 +3,14 @@
 <head th:replace="fragments :: html_head">
 </head>
 
-<body>
-    <div th:replace="fragments :: header">
+<body style="
+    background: url('default_images/bg_img.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+">
+<div th:replace="fragments :: header">
     </div>
     <div class="d-flex" style="justify-content: center; align-items: center; height: 80vh;">
 
