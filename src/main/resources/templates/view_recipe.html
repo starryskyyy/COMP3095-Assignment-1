@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>View Recipe</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments :: html_head">
 </head>
 <body>
-<form method="POST" th:action="@{/recipe}" th:object="${recipe}">
-    <div class="bg-light p-5" style="border-radius: 5%;">
-        <input type="text" th:field="*{id}" th:value="*{id}" hidden>
-        <input type="text" th:field="*{user.id}" th:value="*{user.id}" hidden>
-        <div th:text="*{name}"></div>
-        <input type="text" th:field="*{name}" th:value="*{name}" hidden>
-        <div th:text="*{description}"></div>
-        <input type="text" th:field="*{description}" th:value="*{description}" hidden>
-        <div th:text="*{instruction}"></div>
-        <input type="text" th:field="*{instruction}" th:value="*{instruction}" hidden>
-        <div th:each="ingredient, i : *{ingredients}">
-            <span th:text="*{ingredients[__${i.index}__].name}"></span>
-            <span th:text="*{ingredients[__${i.index}__].amount}"></span>
-
-            <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" hidden></input>
-            <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" hidden></input>
-        </div>
+    <div th:replace="fragments :: header">
     </div>
-    <button type="submit">Add Favorite!</button>
-</form>
-<span th:if="${param.added}">successfully added</span>
+    <form method="POST" th:action="@{/recipe}" th:object="${recipe}">
+        <div class="bg-light p-5" style="border-radius: 5%;">
+            <img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}">
+            <input type="text" th:field="*{imageFile}" th:value="*{imageFile}" hidden>
+            <input type="text" th:field="*{id}" th:value="*{id}" hidden>
+            <input type="text" th:field="*{user.id}" th:value="*{user.id}" hidden>
+            <div th:text="*{name}"></div>
+            <input type="text" th:field="*{name}" th:value="*{name}" hidden>
+            <div th:text="*{description}"></div>
+            <input type="text" th:field="*{description}" th:value="*{description}" hidden>
+            <div th:text="*{instruction}"></div>
+            <input type="text" th:field="*{instruction}" th:value="*{instruction}" hidden>
+            <div th:each="ingredient, i : *{ingredients}">
+                <span th:text="*{ingredients[__${i.index}__].name}"></span>
+                <span th:text="*{ingredients[__${i.index}__].amount}"></span>
+
+                <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" hidden></input>
+                <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" hidden></input>
+            </div>
+        </div>
+            <button th:unless="${user} or ${param.added}" type="submit">Add Favorite!</button>
+    </form>
+    <span th:if="${param.added}">successfully added</span>
 </body>
 </html>

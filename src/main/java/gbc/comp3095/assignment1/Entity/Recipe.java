@@ -21,7 +21,7 @@ public class Recipe {
     private String description;
     private String instruction;
     @Lob
-    @Column(name = "image", length = Integer.MAX_VALUE, nullable = true)
+    @Column(name = "image", length = Integer.MAX_VALUE)
     private String imageFile;
 
     @ManyToOne

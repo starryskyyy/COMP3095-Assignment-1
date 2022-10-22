@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -23,21 +25,29 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        User user = new User();
-        if (created == false) {
-            // for testing purpose
-            user.setUsername("user");
-            user.setPassword("ps");
-            user.setAddress("");
-            user.setBirthday("");
-            user.setFirstName("");
-            user.setLastName("");
+        if (!created) {
+            // Initial Values
+            List<List<String>> information = new ArrayList<>();
+            information.add(Arrays.asList("user", "user", "user", "ps", "user@gmail.com", "130 User st."));
+            information.add(Arrays.asList("hoonie", "Seunghun", "Yim", "ps", "yimsh@gmail.com", "5700 Yonge st."));
+            information.add(Arrays.asList("danny", "Danny", "Nguyen", "ps", "danny@gmail.com", "124 Dundas st."));
+            information.add(Arrays.asList("yoonie", "Yoonhee", "Kim", "ps", "yoonie@gmail.com", "232 Jarvis st."));
+            information.add(Arrays.asList("lisa", "Elizaveta", "Vygovskaia", "ps", "liz@gmail.com", "3433 Richmond st."));
 
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-            user.getRoles().add(new Role(1));
-            userService.createUser(user);
+            List<User> users = new ArrayList<>();
+            for (int i = 0; i < 5; ++i) {
+                User user = new User().populateInfo(information.get(i));
+                user.setId(i + 1L);
+
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                String encodedPassword = passwordEncoder.encode(user.getPassword());
+                user.setPassword(encodedPassword);
+                user.getRoles().add(new Role(1));
+
+                users.add(user);
+            }
+
+            userService.createUsers(users);
 
             created = true;
         }

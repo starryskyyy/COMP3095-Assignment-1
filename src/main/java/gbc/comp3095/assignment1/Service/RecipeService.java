@@ -1,5 +1,6 @@
 package gbc.comp3095.assignment1.Service;
 
+import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Repository.RecipeRepository;
 import gbc.comp3095.assignment1.Entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class RecipeService {
@@ -26,12 +27,13 @@ public class RecipeService {
         return recipeRepository.findById(id).orElse(null);
     }
 
-    public List<Recipe> getRecipeByUserId(int userId) {
+    public List<Recipe> getRecipeByUserId(Long userId) {
         List<Recipe> newRecipe = new ArrayList<>();
         List<Recipe> recipes = recipeRepository.findAll();
 
         for (Recipe recipe: recipes) {
-            if (recipe.getUser().getId() == userId) {
+            User user = recipe.getUser();
+            if (user != null && Objects.equals(user.getId(), userId)) {
                 newRecipe.add(recipe);
             }
         }
@@ -41,26 +43,6 @@ public class RecipeService {
 
     public List<Recipe> getRecipesByName(String name) {
         return recipeRepository.findByNameContaining(name);
-    }
-
-    public Recipe updateRecipe(Recipe recipe) {
-        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipe.getId());
-        Recipe newRecipe = null;
-
-        if (optionalRecipe.isPresent()) {
-            newRecipe = optionalRecipe.get();
-            newRecipe.setName(recipe.getName());
-            newRecipe.setUser(recipe.getUser());
-            newRecipe.setDescription(recipe.getDescription());
-            newRecipe.setInstruction(recipe.getInstruction());
-            newRecipe.setIngredients(recipe.getIngredients());
-
-            recipeRepository.save(newRecipe);
-        } else {
-            return new Recipe();
-        }
-
-        return newRecipe;
     }
 
     public String deleteRecipeById(int id) {

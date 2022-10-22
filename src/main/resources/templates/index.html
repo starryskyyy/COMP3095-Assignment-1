@@ -9,7 +9,7 @@
     <div class="container">
         <div id="view_recipe">
             <div th:each="recipe : ${recipes}">
-                <img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}">
+                <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
             </div>
         </div>
     </div>

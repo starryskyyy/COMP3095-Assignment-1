@@ -30,22 +30,44 @@ public class RecipeController {
 
     private boolean created = false;
 
+    private void addDefaultRecipes() {
+        List<byte[]> images = new ImageParser().getImageBytes();
+        for (byte[] image : images) {
+            Recipe recipe = new Recipe();
+            byte[] encodedFile = Base64.getEncoder().encode(image);
+            String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
+            recipe.setImageFile(encodedFileString);
+            recipeService.createRecipe(recipe);
+        }
+        created = true;
+    }
+
     @GetMapping("/")
     public String viewHomePage(Model model) {
         // default recipes
-        if (!created) {
-            List<byte[]> images = new ImageParser().getImageBytes();
-            for (byte[] image: images) {
-                Recipe recipe = new Recipe();
-                byte[] encodedFile = Base64.getEncoder().encode(image);
-                String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
-                recipe.setImageFile(encodedFileString);
-                recipeService.createRecipe(recipe);
-            }
-            created = true;
-        }
+        if (!created) addDefaultRecipes();
 
         model.addAttribute("recipes", recipeService.getRecipes());
+        return "index";
+    }
+
+    @GetMapping("/myRecipes")
+    public String viewMyRecipes(Model model) {
+        // Getting Currently logged-in user
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        Long userId = userService.getUserByUsername(username).getId();
+
+        model.addAttribute("recipes", recipeService.getRecipeByUserId(userId));
+        return "index";
+    }
+
+    @GetMapping("/favoriteRecipes")
+    public String viewFavoriteRecipes(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+
+        model.addAttribute("recipes", userService.getUserByUsername(username).getFavoriteRecipes());
         return "index";
     }
 
@@ -63,14 +85,13 @@ public class RecipeController {
         recipe.setUser(userService.getUserByUsername(username));
         // Encoding Image
         byte[] encodedFile;
-        String encodedFileString;
         if (imageFile.isEmpty()) {
             encodedFile = Base64.getEncoder().encode(new ImageParser().getDefaultImage());
         } else {
             encodedFile = Base64.getEncoder().encode(imageFile.getBytes());
         }
 
-        encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
+        String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
         recipe.setImageFile(encodedFileString);
         recipeService.createRecipe(recipe);
 
@@ -85,12 +106,6 @@ public class RecipeController {
         return "redirect:addRecipe";
     }
 
-    @GetMapping("/recipes")
-    public String getAllRecipes(Model model) {
-        model.addAttribute("recipes", recipeService.getRecipes());
-        return "recipes";
-    }
-
     @GetMapping("/recipe/{id}")
     public String getRecipeById(Model model, @ModelAttribute("recipe") Recipe previousRecipe, @PathVariable int id) {
         Recipe recipe = previousRecipe;
@@ -100,6 +115,18 @@ public class RecipeController {
                 throw new CustomException("Recipe id not found - " + id);
             }
         }
+
+        // Getting currently logged-in user
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User user = userService.getUserByUsername(username);
+
+        for (Recipe r: user.getFavoriteRecipes()) {
+            if (r.getId() == id) {
+                model.addAttribute("user", user);
+            }
+        }
+
         model.addAttribute("recipe", recipe);
         return "view_recipe";
     }

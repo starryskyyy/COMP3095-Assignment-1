@@ -1,15 +1,14 @@
 package gbc.comp3095.assignment1.Entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,8 +29,8 @@ public class User {
     private String address;
     private String birthday;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    private List<Recipe> favoriteRecipes;
+    @ManyToMany(cascade=CascadeType.ALL)
+    private Set<Recipe> favoriteRecipes;
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
@@ -39,5 +38,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    public User populateInfo(List<String> info) {
+        this.username = info.get(0);
+        this.firstName = info.get(1);
+        this.lastName = info.get(2);
+        this.password = info.get(3);
+        this.email = info.get(4);
+        this.address = info.get(5);
 
+        return this;
+    }
 }
