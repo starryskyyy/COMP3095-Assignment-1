@@ -6,6 +6,7 @@ import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Utils.CustomException;
+import gbc.comp3095.assignment1.Utils.ImageParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 public class RecipeController {
@@ -26,8 +28,22 @@ public class RecipeController {
     @Autowired
     private UserService userService;
 
+    private boolean created = false;
+
     @GetMapping("/")
     public String viewHomePage(Model model) {
+        if (!created) {
+            List<byte[]> images = new ImageParser().getImageBytes();
+            for (byte[] image: images) {
+                Recipe recipe = new Recipe();
+                byte[] encodedFile = Base64.getEncoder().encode(image);
+                String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
+                recipe.setImageFile(encodedFileString);
+                recipeService.createRecipe(recipe);
+            }
+            created = true;
+        }
+
         model.addAttribute("recipes", recipeService.getRecipes());
         return "index";
     }
