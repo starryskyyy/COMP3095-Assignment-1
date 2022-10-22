@@ -16,20 +16,10 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    private boolean created = false;
-
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepository userRepo;
-
-    @GetMapping("/home")
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home.html");
-        return modelAndView;
-    }
+    private boolean created = false;
 
     @GetMapping("/login")
     public String login() {

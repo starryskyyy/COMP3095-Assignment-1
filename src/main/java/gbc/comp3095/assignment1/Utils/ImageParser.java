@@ -9,13 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageParser {
+    private byte[] defaultImage;
     private List<byte[]> imageBytes = new ArrayList<>();
 
     public ImageParser() {
         try {
+            // Setting default image
+            File file = ResourceUtils.getFile("classpath:images/default.png");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            defaultImage = fileInputStream.readAllBytes();
+
+            // Setting default images for testing
             for (int i = 1; i <= 10; i++) {
-                File path = ResourceUtils.getFile("classpath:images/image" + i + ".jpg");
-                FileInputStream fileInputStream = new FileInputStream(path);
+                file = ResourceUtils.getFile("classpath:images/image" + i + ".jpg");
+                fileInputStream = new FileInputStream(file);
                 imageBytes.add(fileInputStream.readAllBytes());
             }
         } catch (IOException e) {
@@ -25,5 +32,9 @@ public class ImageParser {
 
     public List<byte[]> getImageBytes() {
         return imageBytes;
+    }
+
+    public byte[] getDefaultImage() {
+        return defaultImage;
     }
 }

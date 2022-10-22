@@ -32,6 +32,7 @@ public class RecipeController {
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
+        // default recipes
         if (!created) {
             List<byte[]> images = new ImageParser().getImageBytes();
             for (byte[] image: images) {
@@ -61,10 +62,16 @@ public class RecipeController {
         String username = ((UserDetails) principal).getUsername();
         recipe.setUser(userService.getUserByUsername(username));
         // Encoding Image
-        byte[] encodedFile = Base64.getEncoder().encode(imageFile.getBytes());
-        String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
-        recipe.setImageFile(encodedFileString);
+        byte[] encodedFile;
+        String encodedFileString;
+        if (imageFile.isEmpty()) {
+            encodedFile = Base64.getEncoder().encode(new ImageParser().getDefaultImage());
+        } else {
+            encodedFile = Base64.getEncoder().encode(imageFile.getBytes());
+        }
 
+        encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
+        recipe.setImageFile(encodedFileString);
         recipeService.createRecipe(recipe);
 
         return "redirect:";
@@ -107,7 +114,6 @@ public class RecipeController {
 
         userService.updateUser(user);
 
-        System.out.println(recipe);
         redirectAttributes.addFlashAttribute("recipe", recipe);
         return "redirect:recipe/" + recipe.getId() + "?added=true";
     }

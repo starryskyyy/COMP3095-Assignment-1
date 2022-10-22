@@ -8,30 +8,30 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form method="POST" th:action="@{/addRecipe}" th:object="${recipe}" class="form-signup" enctype="multipart/form-data">
-    <div class="bg-light p-5" style="border-radius: 5%;">
-        <input id="image" type="file" name="image" accept="image/*">
-        <label class="form-label pt-3" for="name">Recipe Name</label>
-        <input id="name" name="name" type="text" class="form-control mb-3" th:field="*{name}" placeholder="Recipe Name" />
-        <label class="form-label pt-3" for="description">Description</label>
-        <textarea id="description" name="description" type="text" class="form-control mb-3" th:field="*{description}" placeholder="Description"></textarea>
-        <label class="form-label pt-3" for="instruction">Instruction</label>
-        <textarea id="instruction" name="instruction" type="text" class="form-control mb-3" th:field="*{instruction}" placeholder="Instruction"></textarea>
+    <form method="POST" th:action="@{/addRecipe}" th:object="${recipe}" class="form-signup" enctype="multipart/form-data">
+        <div class="bg-light p-5" style="border-radius: 5%;">
+            <input id="image" type="file" name="image" accept="image/*">
+            <label class="form-label pt-3" for="name">Recipe Name</label>
+            <input id="name" name="name" type="text" class="form-control mb-3" th:field="*{name}" placeholder="Recipe Name" />
+            <label class="form-label pt-3" for="description">Description</label>
+            <textarea id="description" name="description" type="text" class="form-control mb-3" th:field="*{description}" placeholder="Description"></textarea>
+            <label class="form-label pt-3" for="instruction">Instruction</label>
+            <textarea id="instruction" name="instruction" type="text" class="form-control mb-3" th:field="*{instruction}" placeholder="Instruction"></textarea>
 
-        <ul>
-            <li th:each="ingredient, i : *{ingredients}">
-                <div>
-                    <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) Onion"></input>
-                    <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) 300g"></input>
-                </div>
-            </li>
-        </ul>
+            <ul>
+                <li th:each="ingredient, i : *{ingredients}">
+                    <div>
+                        <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) Onion"></input>
+                        <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) 300g"></input>
+                    </div>
+                </li>
+            </ul>
 
-        <input type="submit" name="addbox" value="Add Ingredient Box" />
-    </div>
-    <div class="d-grid col-8 mx-auto">
-        <input type="submit" name="submit" value="create recipe" />
-    </div>
-</form>
+            <input type="submit" name="addbox" value="Add Ingredient Box" />
+        </div>
+        <div class="d-grid col-8 mx-auto">
+            <input type="submit" name="submit" value="create recipe" />
+        </div>
+    </form>
 </body>
 </html>
