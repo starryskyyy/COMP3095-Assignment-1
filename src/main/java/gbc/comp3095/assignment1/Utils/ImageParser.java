@@ -20,7 +20,7 @@ public class ImageParser {
             defaultImage = fileInputStream.readAllBytes();
 
             // Setting default images for testing
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 4; i++) {
                 file = ResourceUtils.getFile("classpath:default_images/image" + i + ".jpg");
                 fileInputStream = new FileInputStream(file);
                 imageBytes.add(fileInputStream.readAllBytes());

@@ -22,6 +22,13 @@ public class RecipeService {
         return recipeRepository.save(recipe);
     }
 
+    public List<Recipe> createRecipes(List<Recipe> recipes) {
+        for (Recipe recipe : recipes) {
+            recipe.setCreatedDate(LocalDate.now());
+        }
+        return recipeRepository.saveAll(recipes);
+    }
+
     public List<Recipe> getRecipes() {
         return recipeRepository.findAll();
     }

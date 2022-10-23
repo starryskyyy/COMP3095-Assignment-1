@@ -19,7 +19,23 @@
             </div>
         </div>
 
-        <h1 class="text-center mt-5"><b>Recipes for You</b></h1>
+
+        <div th:if="${param.filter} == null">
+            <h1 class="text-center mt-5"><b>Recipes for You</b></h1>
+        </div>
+        <div th:unless="${param.filter} == null">
+            <div th:if="${#strings.toString(param.filter)} == 'myRecipes' or ${#strings.toString(param.filter)} == 'favoriteRecipes'">
+                <div th:if="${#strings.toString(param.filter)} == 'myRecipes'">
+                    <h1 class="text-center mt-5"><b>My Recipes</b></h1>
+                </div>
+                <div th:if="${#strings.toString(param.filter)} == 'favoriteRecipes'">
+                    <h1 class="text-center mt-5"><b>Favorite Recipes</b></h1>
+                </div>
+            </div>
+            <div th:unless="${#strings.toString(param.filter)} == 'myRecipes' or ${#strings.toString(param.filter)} == 'favoriteRecipes'">
+                <h1 class="text-center mt-5"><b th:text="'Search Result' + ' : ' + ${param.filter}"></b></h1>
+            </div>
+        </div>
 
         <form method="POST" th:action="@{/searchRecipeByName}">
             <div class="p-1 bg-light rounded rounded-pill shadow-sm mt-5 mb-4" style="width: 50%; margin: 0 auto;">

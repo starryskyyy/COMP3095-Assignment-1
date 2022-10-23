@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,5 +22,12 @@ public class Ingredient {
     public Ingredient(String name, String amount) {
         this.name = name;
         this.amount = amount;
+    }
+
+    public Ingredient populateInfo(List<String> info) {
+        this.amount = info.get(0);
+        this.name = info.get(1);
+
+        return this;
     }
 }

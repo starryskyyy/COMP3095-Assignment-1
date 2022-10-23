@@ -36,4 +36,12 @@ public class Recipe {
 
     @OneToMany(cascade=CascadeType.ALL)
     private List<Ingredient> ingredients = new ArrayList<>();
+
+    public Recipe populateInfo(List<String> info) {
+        this.instruction = info.get(0);
+        this.name = info.get(1);
+        this.description = info.get(2);
+
+        return this;
+    }
 }
