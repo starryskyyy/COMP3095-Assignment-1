@@ -39,11 +39,12 @@
     width: 200px;
 }
 
-#view_recipe {
+#recipe_sec {
 }
 
 #recipe_box {
-    border: 2px solid black;
+    border: 2px solid #f3f3f3;
+    margin: 1rem;
 }
 
 #view_recipe img {

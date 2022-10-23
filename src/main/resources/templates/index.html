@@ -18,10 +18,26 @@
                 <a href="/login"><button class="btn btn-lg btn-danger mt-3">Get Started</button></a>
             </div>
         </div>
-        <div id="view_recipe">
-                <div th:each="recipe : ${recipes}" id="recipe_box">
-                    <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
+
+        <h1 class="text-center mt-5"><b>Recipes for You</b></h1>
+
+        <form action="">
+            <div class="p-1 bg-light rounded rounded-pill shadow-sm mt-5 mb-4" style="width: 50%; margin: 0 auto;">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button id="button-addon2" type="submit" class="btn btn-link text-warning"><i class="fa fa-search"></i></button>
+                    </div>
+                    <input type="search" placeholder="Search the Recipe" aria-describedby="button-addon2" class="form-control border-0 bg-light">
                 </div>
+            </div>
+        </form>
+
+        <div id="recipe_sec">
+            <div id="view_recipe">
+                    <div th:each="recipe : ${recipes}" id="recipe_box">
+                        <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
+                    </div>
+            </div>
         </div>
     </div>
 </body>
