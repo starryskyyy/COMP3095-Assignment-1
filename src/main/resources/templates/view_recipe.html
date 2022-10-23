@@ -11,33 +11,39 @@
     <div class="container p-5">
         <form method="POST" th:action="@{/recipe}" th:object="${recipe}">
             <div style="display: flex;">
-                <div>
-                    <img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}">
+                <div style="width: 500px;">
+                    <img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}" style="width: 500px;">
 
                     <input type="text" th:field="*{imageFile}" th:value="*{imageFile}" hidden>
                     <input type="text" th:field="*{id}" th:value="*{id}" hidden>
                     <input type="text" th:field="*{user.id}" th:value="*{user.id}" hidden>
 
-                    <div th:text="*{name}"></div>
+                    <div th:text="*{name}" style="font-size: 35pt; font-weight: bold;"></div>
                     <input type="text" th:field="*{name}" th:value="*{name}" hidden>
+
+                    <button th:unless="${user} or ${param.added}" type="submit" class="btn btn-dark mt-3">Add Favorite!</button>
+                    <span th:if="${param.added}">Successfully added!</span>
                 </div>
-                <div>
+                <div id="detail_recipe" class="ms-3">
+                    <h3>Description</h3>
                     <div th:text="*{description}"></div>
                     <input type="text" th:field="*{description}" th:value="*{description}" hidden>
+                    <h3 class="mt-2">Instruction</h3>
                     <div th:text="*{instruction}"></div>
                     <input type="text" th:field="*{instruction}" th:value="*{instruction}" hidden>
-                    <div th:each="ingredient, i : *{ingredients}">
-                        <span th:text="*{ingredients[__${i.index}__].name}"></span>
-                        <span th:text="*{ingredients[__${i.index}__].amount}"></span>
+                    <h3 class="mt-2">Ingredients</h3>
+                    <ol style="list-style-type: decimal-leading-zero;">
+                        <li th:each="ingredient, i : *{ingredients}">
+                            <span th:text="*{ingredients[__${i.index}__].name}"></span>
+                            <span th:text="*{ingredients[__${i.index}__].amount}"></span>
 
-                        <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" hidden></input>
-                        <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" hidden></input>
-                    </div>
-                    <button th:unless="${user} or ${param.added}" type="submit">Add Favorite!</button>
+                            <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" hidden></input>
+                            <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" hidden></input>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </form>
-        <span th:if="${param.added}">successfully added</span>
     </div>
 </body>
 </html>
