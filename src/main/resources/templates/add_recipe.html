@@ -20,6 +20,8 @@
                 <label class="form-label pt-3" for="instruction">Instruction</label>
                 <textarea id="instruction" name="instruction" type="text" class="form-control mb-3" th:field="*{instruction}" placeholder="Instruction"></textarea>
 
+                <label class="form-label pt-3">Ingredients</label>
+
                 <ol>
                     <li th:each="ingredient, i : *{ingredients}" style="list-style-type: decimal-leading-zero;">
                         <div style="display: flex;">
@@ -28,12 +30,18 @@
                         </div>
                     </li>
                 </ol>
-                <input type="submit" name="addbox" value="Add Ingredient Box" />
 
-                <input id="image" type="file" name="image" accept="image/*">
+                <div class="d-grid col-4 mx-auto">
+                    <input type="submit" name="addbox" value="Add Ingredient Box" />
+                </div>
+                <div class="d-grid col-2 mx-auto mt-2">
+                    <input type="submit" name="deletebox" value="Delete" />
+                </div>
+
+                <input id="image" type="file" name="image" accept="image/*" class="mt-2">
 
                 <div class="d-grid col-8 mx-auto">
-                    <input type="submit" name="submit" value="Create Recipe" />
+                    <input type="submit" name="submit" value="Create Recipe" class="btn btn-dark mt-2"/>
                 </div>
             </div>
         </form>
