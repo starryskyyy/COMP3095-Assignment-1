@@ -7,5 +7,28 @@
 <body>
     <div th:replace="fragments :: header">
     </div>
+    <div>
+        <div class="container my-4" style="justify-content: center; align-items: center; width: 70%">
+            <div class="row p-5">
+                <h2 class="text-center"><b>Weekly Planned Meal</b></h2>
+                <div style="display: flex; justify-content: end;">
+                    <a class="nav-link" href="/addPlan"><button class="btn btn-dark">Add Meal</button></a>
+                </div>
+                <div>
+                    <table class="table">
+                        <tr>
+                            <th>Date</th>
+                            <th>Meal Time</th>
+                            <th>Recipe</th>
+                        </tr>
+                        <tr th:each="plan : ${plans}">
+                            <td th:text="*{plan.date}"></td>
+                            <td th:text="*{plan.mealTime}"></td>
+                            <td><a th:href="${'/recipe/' + plan.recipe.id}" style="text-decoration: none; color: black;"><div th:text="*{plan.recipe.name}"></div></a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
 </body>
 </html>
