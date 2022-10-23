@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -56,6 +57,19 @@ public class PlanController {
         plan.setUser(user);
 
         userService.updatePlan(user, plan);
+
+        return "redirect:/viewPlan";
+    }
+
+    @GetMapping("/deletePlan/{planId}")
+    public String deletePlan(@PathVariable int planId) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User user = userService.getUserByUsername(username);
+        Plan plan = planService.getPlanById(planId);
+
+        userService.deletePlanById(user, plan, planId);
+        planService.deletePlan(planId);
 
         return "redirect:/viewPlan";
     }

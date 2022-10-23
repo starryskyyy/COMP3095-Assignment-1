@@ -26,7 +26,7 @@
                             <td th:text="*{plan.date}"></td>
                             <td th:text="*{plan.mealTime}"></td>
                             <td><a th:href="${'/recipe/' + plan.recipe.id}" style="text-decoration: none; color: black;"><div th:text="*{plan.recipe.name}"></div></a></td>
-                            <td><a href="deletePlan"><button class="btn btn-danger btn-sm">DELETE</button></a></td>
+                            <td><a th:href="'/deletePlan/' + ${plan.id}"><button class="btn btn-danger btn-sm">DELETE</button></a></td>
                         </tr>
                     </table>
                 </div>

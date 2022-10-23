@@ -72,6 +72,11 @@ public class UserService {
         return user;
     }
 
+    public void deletePlanById(User user, Plan plan, int id) {
+        user.getPlans().remove(plan);
+        userRepository.save(user);
+    }
+
     public String deleteUserById(Long id) {
         userRepository.deleteById(id);
         return "User has been deleted.";

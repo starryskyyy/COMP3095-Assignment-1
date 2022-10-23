@@ -18,9 +18,17 @@ public class PlanService {
         return planRepository.save(plan);
     }
 
+    public void deletePlan(int id) {
+        planRepository.deleteById(id);
+    }
+
     public Set<Plan> getPlans(User user) {
         LocalDate today = LocalDate.now();
         LocalDate afterWeek = today.plusWeeks(1);
         return planRepository.findAllByUserAndDateBetweenOrderByDateAsc(user, today, afterWeek);
+    }
+
+    public Plan getPlanById(int id) {
+        return planRepository.findById(id).orElse(null);
     }
 }
