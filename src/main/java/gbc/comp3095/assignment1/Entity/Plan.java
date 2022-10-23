@@ -21,4 +21,6 @@ public class Plan {
 
     @ManyToOne
     Recipe recipe;
+    @ManyToOne
+    User user;
 }
