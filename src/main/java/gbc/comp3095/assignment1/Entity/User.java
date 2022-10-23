@@ -3,8 +3,7 @@ package gbc.comp3095.assignment1.Entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,10 +28,13 @@ public class User {
     private String password;
     private String email;
     private String address;
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @ManyToMany(cascade=CascadeType.ALL)
     private Set<Recipe> favoriteRecipes;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    private Set<Plan> plans;
 
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
@@ -47,7 +49,7 @@ public class User {
         this.password = info.get(3);
         this.email = info.get(4);
         this.address = info.get(5);
-        this.birthday = LocalDateTime.now();
+        this.birthday = LocalDate.now();
 
         return this;
     }

@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Recipe</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+<head th:replace="fragments :: html_head">
 </head>
 <body>
+    <div th:replace="fragments :: header">
+    </div>
     <form method="POST" th:action="@{/addRecipe}" th:object="${recipe}" class="form-signup" enctype="multipart/form-data">
         <div class="bg-light p-5" style="border-radius: 5%;">
-            <input id="image" type="file" name="image" accept="image/*">
             <label class="form-label pt-3" for="name">Recipe Name</label>
             <input id="name" name="name" type="text" class="form-control mb-3" th:field="*{name}" placeholder="Recipe Name" />
             <label class="form-label pt-3" for="description">Description</label>
@@ -29,6 +26,7 @@
 
             <input type="submit" name="addbox" value="Add Ingredient Box" />
         </div>
+        <input id="image" type="file" name="image" accept="image/*">
         <div class="d-grid col-8 mx-auto">
             <input type="submit" name="submit" value="create recipe" />
         </div>

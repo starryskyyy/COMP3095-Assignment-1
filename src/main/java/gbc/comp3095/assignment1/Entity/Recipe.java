@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class Recipe {
     private String name;
     private String description;
     private String instruction;
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 
     @Lob
     @Column(name = "image", length = Integer.MAX_VALUE)

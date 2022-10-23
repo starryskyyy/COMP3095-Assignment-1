@@ -174,9 +174,8 @@ public class RecipeController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         User user = userService.getUserByUsername(username);
-        user.getFavoriteRecipes().add(recipe);
 
-        userService.updateUser(user);
+        userService.updateFavoriteRecipe(user, recipe);
 
         redirectAttributes.addFlashAttribute("recipe", recipe);
         return "redirect:recipe/" + recipe.getId() + "?added=true";
