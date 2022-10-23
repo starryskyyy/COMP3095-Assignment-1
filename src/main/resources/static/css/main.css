@@ -49,6 +49,16 @@
 }
 
 #view_recipe img {
-    width: 100% !important;
+    width: 350px !important;
     height: auto !important;
+}
+
+.view_prof_col1 {
+    text-align: end;
+    font-weight: normal;
+    padding-right: 1rem;
+}
+
+#detail_recipe h3 {
+    font-weight: bold;
 }

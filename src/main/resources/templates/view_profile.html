@@ -8,40 +8,36 @@
     </div>
 
     <div class="container my-4" style="justify-content: center; align-items: center; width: 40%;">
-        <table>
-
-        </table>
-    </div>
-
-    <div class="container my-4" style="justify-content: center; align-items: center; width: 40%;">
         <div th:object="${user}" class="bg-light p-5" style="border-radius: 5%;">
-
             <h2 class="text-center"><b>PROFILE</b></h2>
-
-            <label class="form-label pt-3" for="username">Username</label>
-            <input id="username" name="username" type="text" class="form-control" placeholder="Username" />
-            <div th:text="${user.username}"></div>
-
-            <label class="form-label pt-3" for="firstname">First name</label>
-            <input id="firstname" name="firstname" type="text" class="form-control mb-3" placeholder="First name" />
-            <div th:text="${user.firstName}"></div>
-
-            <label class="form-label pt-3" for="lastname">Last name</label>
-            <input id="lastname" name="lastname" type="text" class="form-control mb-3" placeholder="Last Name" />
-            <div th:text="${user.lastName}"></div>
-
-            <label class="form-label pt-3" for="email">Email</label>
-            <input id="email" name="email" type="email" class="form-control mb-3" placeholder="Email" />
-            <div th:text="${user.firstName}"></div>
-
-            <label class="form-label pt-3" for="address">Address</label>
-            <input id="address" name="address" type="text" class="form-control mb-3" placeholder="5700 Yonge St." />
-            <div th:text="${user.address}"></div>
-
-            <label class="form-label pt-3" for="birthday">Date of Birth</label>
-            <input id="birthday" name="birthday" type="date" class="form-control mb-3" />
-            <div th:text="${user.birthday}"></div>
-
+            <div style="display: flex; justify-content: center;">
+                <table>
+                    <tr>
+                        <td class="view_prof_col1">Username :</td>
+                        <td><div th:text="${user.username}"></div></td>
+                    </tr>
+                    <tr>
+                        <td  class="view_prof_col1">First name :</td>
+                        <td><div th:text="${user.firstName}"></div></td>
+                    </tr>
+                    <tr>
+                        <td  class="view_prof_col1">Last name :</td>
+                        <td><div th:text="${user.lastName}"></div></td>
+                    </tr>
+                    <tr>
+                        <td  class="view_prof_col1">Email :</td>
+                        <td><div th:text="${user.email}"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="view_prof_col1">Address :</td>
+                        <td><div th:text="${user.address}"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="view_prof_col1">Date of Birth :</td>
+                        <td><div th:text="${user.birthday}"></div></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </body>

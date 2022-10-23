@@ -36,15 +36,19 @@
             <div id="view_recipe">
                 <div th:each="recipe : ${recipes}" id="recipe_box">
                     <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
-                    <div class="ms-2">
-                        <div th:text="*{recipe.name}" style="font-size: 20pt; font-weight: bold;"></div>
-                        <div style="display: flex;">
-                            <div th:text="*{recipe.description}"></div>
-                            <div th:text="*{recipe.instruction}" class="mx-3"></div>
-                            <div th:each="ingredient, i : *{ingredients}">
-                                <span th:text="*{ingredients[__${i.index}__].name}"></span>
-                                <span th:text="*{ingredients[__${i.index}__].amount}"></span>
-                            </div>
+
+                    <div class="m-3" style="display: flex;">
+                        <div style="width: 60%">
+                            <div th:text="*{recipe.name}" style="font-size: 20pt; font-weight: bold;"></div>
+                            <div th:text="*{recipe.description}" class="mt-1"></div>
+                        </div>
+                        <div class="ms-4" style="font-size: 10pt; width: 40%">
+                            <ol style="list-style-type: decimal-leading-zero;">
+                                <li th:each="ingredient, i : *{recipe.ingredients}">
+                                    <span th:text="*{recipe.ingredients[__${i.index}__].name}"></span>
+                                    <span th:text="*{recipe.ingredients[__${i.index}__].amount}"></span>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
