@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: html_head">
+</head>
+<body style="
+    background: url('images/bg_img.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+">
+    <div th:replace="fragments :: header">
+    </div>
+    <div class="container my-4 d-flex" style="justify-content: center; align-items: center; height: 80vh;">
+        <div th:object="${user}" class="bg-light p-5" style="border-radius: 20px; width: 40%;">
+            <h2 class="text-center"><b>USER PROFILE</b></h2>
+            <div style="display: flex; justify-content: center;">
+                <table>
+                    <tr>
+                        <td class="view_prof_col1">Username :</td>
+                        <td><div th:text="${user.username}"></div></td>
+                    </tr>
+                    <tr>
+                        <td  class="view_prof_col1">First name :</td>
+                        <td><div th:text="${user.firstName}"></div></td>
+                    </tr>
+                    <tr>
+                        <td  class="view_prof_col1">Last name :</td>
+                        <td><div th:text="${user.lastName}"></div></td>
+                    </tr>
+                    <tr>
+                        <td  class="view_prof_col1">Email :</td>
+                        <td><div th:text="${user.email}"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="view_prof_col1">Address :</td>
+                        <td><div th:text="${user.address}"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="view_prof_col1">Date of Birth :</td>
+                        <td><div th:text="${user.birthday}"></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
