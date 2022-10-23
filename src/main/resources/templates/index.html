@@ -34,9 +34,20 @@
 
         <div id="recipe_sec">
             <div id="view_recipe">
-                    <div th:each="recipe : ${recipes}" id="recipe_box">
-                        <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
+                <div th:each="recipe : ${recipes}" id="recipe_box">
+                    <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
+                    <div class="ms-2">
+                        <div th:text="*{recipe.name}" style="font-size: 20pt; font-weight: bold;"></div>
+                        <div style="display: flex;">
+                            <div th:text="*{recipe.description}"></div>
+                            <div th:text="*{recipe.instruction}" class="mx-3"></div>
+                            <div th:each="ingredient, i : *{ingredients}">
+                                <span th:text="*{ingredients[__${i.index}__].name}"></span>
+                                <span th:text="*{ingredients[__${i.index}__].amount}"></span>
+                            </div>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

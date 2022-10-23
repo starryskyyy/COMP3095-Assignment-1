@@ -4,10 +4,45 @@
 <head th:replace="fragments :: html_head">
 </head>
 <body>
-  <div th:replace="fragments :: header">
-  </div>
-  <div th:object="${user}">
-    <div th:text="${user.username}"></div>
-  </div>
+    <div th:replace="fragments :: header">
+    </div>
+
+    <div class="container my-4" style="justify-content: center; align-items: center; width: 40%;">
+        <table>
+
+        </table>
+    </div>
+
+    <div class="container my-4" style="justify-content: center; align-items: center; width: 40%;">
+        <div th:object="${user}" class="bg-light p-5" style="border-radius: 5%;">
+
+            <h2 class="text-center"><b>PROFILE</b></h2>
+
+            <label class="form-label pt-3" for="username">Username</label>
+            <input id="username" name="username" type="text" class="form-control" placeholder="Username" />
+            <div th:text="${user.username}"></div>
+
+            <label class="form-label pt-3" for="firstname">First name</label>
+            <input id="firstname" name="firstname" type="text" class="form-control mb-3" placeholder="First name" />
+            <div th:text="${user.firstName}"></div>
+
+            <label class="form-label pt-3" for="lastname">Last name</label>
+            <input id="lastname" name="lastname" type="text" class="form-control mb-3" placeholder="Last Name" />
+            <div th:text="${user.lastName}"></div>
+
+            <label class="form-label pt-3" for="email">Email</label>
+            <input id="email" name="email" type="email" class="form-control mb-3" placeholder="Email" />
+            <div th:text="${user.firstName}"></div>
+
+            <label class="form-label pt-3" for="address">Address</label>
+            <input id="address" name="address" type="text" class="form-control mb-3" placeholder="5700 Yonge St." />
+            <div th:text="${user.address}"></div>
+
+            <label class="form-label pt-3" for="birthday">Date of Birth</label>
+            <input id="birthday" name="birthday" type="date" class="form-control mb-3" />
+            <div th:text="${user.birthday}"></div>
+
+        </div>
+    </div>
 </body>
 </html>

@@ -45,9 +45,10 @@
 #recipe_box {
     border: 2px solid #f3f3f3;
     margin: 1rem;
+    display: flex;
 }
 
 #view_recipe img {
-    width: 30% !important;
+    width: 100% !important;
     height: auto !important;
 }
