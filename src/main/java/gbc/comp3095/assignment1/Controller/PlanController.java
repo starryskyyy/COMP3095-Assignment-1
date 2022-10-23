@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PlanController {
     @Autowired
-    private PlanService planService;
-    @Autowired
     private RecipeService recipeService;
     @Autowired
     private UserService userService;

@@ -19,7 +19,11 @@ public class Recipe {
     @GeneratedValue
     private int id;
     private String name;
+    @Lob
+    @Column(length = Integer.MAX_VALUE)
     private String description;
+    @Lob
+    @Column(length = Integer.MAX_VALUE)
     private String instruction;
     private LocalDate createdDate;
 

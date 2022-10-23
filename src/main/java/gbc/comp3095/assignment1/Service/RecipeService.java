@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Service
@@ -44,7 +45,16 @@ public class RecipeService {
     }
 
     public List<Recipe> getRecipesByName(String name) {
-        return recipeRepository.findByNameContaining(name);
+        List<Recipe> recipes = getRecipes();
+        List<Recipe> returningRecipes = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))) {
+                returningRecipes.add(recipe);
+            }
+        }
+
+        return returningRecipes;
     }
 
     public String deleteRecipeById(int id) {

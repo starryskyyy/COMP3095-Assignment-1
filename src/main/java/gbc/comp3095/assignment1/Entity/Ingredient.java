@@ -17,4 +17,9 @@ public class Ingredient {
     private int id;
     private String name;
     private String amount;
+
+    public Ingredient(String name, String amount) {
+        this.name = name;
+        this.amount = amount;
+    }
 }

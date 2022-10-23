@@ -21,13 +21,13 @@
 
         <h1 class="text-center mt-5"><b>Recipes for You</b></h1>
 
-        <form action="">
+        <form method="POST" th:action="@{/searchRecipeByName}">
             <div class="p-1 bg-light rounded rounded-pill shadow-sm mt-5 mb-4" style="width: 50%; margin: 0 auto;">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <button id="button-addon2" type="submit" class="btn btn-link text-warning"><i class="fa fa-search"></i></button>
                     </div>
-                    <input type="search" placeholder="Search the Recipe" aria-describedby="button-addon2" class="form-control border-0 bg-light">
+                    <input type="search" name="recipename" placeholder="Search the Recipe" aria-describedby="button-addon2" class="form-control border-0 bg-light">
                 </div>
             </div>
         </form>
