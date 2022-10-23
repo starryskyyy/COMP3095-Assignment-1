@@ -1,5 +1,7 @@
 package gbc.comp3095.assignment1.Service;
 
+import gbc.comp3095.assignment1.Entity.Plan;
+import gbc.comp3095.assignment1.Entity.Recipe;
 import gbc.comp3095.assignment1.Repository.UserRepository;
 import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,6 @@ public class UserService {
             newUser.setEmail(user.getEmail());
             newUser.setAddress(user.getAddress());
             newUser.setBirthday(user.getBirthday());
-            newUser.setFavoriteRecipes(user.getFavoriteRecipes());
 
             userRepository.save(newUser);
         } else {
@@ -55,6 +56,20 @@ public class UserService {
         }
 
         return newUser;
+    }
+
+    public User updateFavoriteRecipe(User user, Recipe recipe) {
+        user.getFavoriteRecipes().add(recipe);
+        userRepository.save(user);
+
+        return user;
+    }
+
+    public User updatePlan(User user, Plan plan) {
+        user.getPlans().add(plan);
+        userRepository.save(user);
+
+        return user;
     }
 
     public String deleteUserById(Long id) {
