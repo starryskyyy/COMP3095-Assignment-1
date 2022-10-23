@@ -1,3 +1,13 @@
+/*********************************************************************************
+* Project: RecipeShare
+* Assignment: Assignment #1
+* Author(s): Seunghun Yim, Danny Nguyen, Yoonhee Kim, Elizaveta Vygovskaia
+* Student Number: 101325908, 100882851, 101277278, 101337015
+* Date: October 23rd, 2022
+* Description: It fetches all data from json files and parse it. The main purpose
+* of it is to insert default data when we run the application.
+*********************************************************************************/
+
 package gbc.comp3095.assignment1.Utils;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
