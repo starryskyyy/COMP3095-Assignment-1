@@ -1,3 +1,13 @@
+/*********************************************************************************
+ * Project: RecipeShare
+ * Assignment: Assignment #1
+ * Author(s): Seunghun Yim, Danny Nguyen, Yoonhee Kim, Elizaveta Vygovskaia
+ * Student Number: 101325908, 100882851, 101277278, 101337015
+ * Date: October 23rd, 2022
+ * Description: This Java file is created for the recipe functions where we have
+ * functions to delete, create, get all plans or a specific recipe by name or ID
+ *********************************************************************************/
+
 package gbc.comp3095.assignment1.Service;
 
 import gbc.comp3095.assignment1.Entity.User;
