@@ -9,5 +9,17 @@
     <div th:replace="fragments :: header">
     </div>
     <div th:each="plan : ${plans}"></div>
+
+    <div class="container my-4" style="justify-content: center; align-items: center;">
+        <div th:each="plan : ${plans}" class="p-5">
+            <h2 class="text-center"><b>PROFILE</b></h2>
+            <table>
+                <th></th>
+                <th>Date</th>
+                <th>Meal Time</th>
+                <th>Recipe</th>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
