@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org/"
+        xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="fragments :: html_head">
 </head>
 <body>
     <div th:replace="fragments :: header">
     </div>
-<!--    <img th:src="@{images/bg_img.jpg}" alt="">-->
     <div class="container">
-        <div id="view_recipe">
-            <div th:each="recipe : ${recipes}">
-                <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
+        <div id="intro" sec:authorize="isAnonymous()">
+            <img th:src="@{images/main_img.jpg}" >
+            <div id="intro_cont">
+                <h3>Share your experience with people</h3>
+                <h1>What are your favorite Recipes?</h1>
+                <a href="/login"><button class="btn btn-lg btn-danger mt-3">Get Started</button></a>
             </div>
+        </div>
+        <div id="view_recipe">
+                <div th:each="recipe : ${recipes}" id="recipe_box">
+                    <a th:href="${'/recipe/' + recipe.id}"><img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}"></a>
+                </div>
         </div>
     </div>
 </body>

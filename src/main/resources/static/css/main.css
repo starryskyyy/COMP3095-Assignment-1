@@ -1,49 +1,52 @@
+#intro {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#intro img {
+    position: relative;
+    width: 1296px;
+}
+
+#intro_cont {
+    position: absolute;
+    top: 45vh;
+    z-index: 1;
+}
+
+#intro_cont h1 {
+    font-size: 35pt;
+    font-weight: bold;
+    color: white;
+}
+#intro_cont h3 {
+    font-size: 20pt;
+    font-weight: lighter;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+#intro_cont a {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+#intro_cont button {
+    border-radius: 10px;
+    width: 200px;
+}
+
 #view_recipe {
-    line-height:0;
-    -webkit-column-count:5; /* split it into 5 columns */
-    -webkit-column-gap:5px; /* give it a 5px gap between columns */
-    -moz-column-count:5;
-    -moz-column-gap:5px;
-    column-count:5;
-    column-gap:5px;
+}
+
+#recipe_box {
+    border: 2px solid black;
 }
 
 #view_recipe img {
-    /*width: 100% !important;
-    height: auto !important;*/
-    width: 250px;
-    height: 250px;
-    margin-bottom:5px; /* to match column gap */
-}
-
-@media (max-width: 1200px) {
-    #view_recipe {
-        -moz-column-count:    4;
-        -webkit-column-count: 4;
-        column-count:         4;
-    }
-}
-
-@media (max-width: 1000px) {
-    #view_recipe {
-        -moz-column-count:    3;
-        -webkit-column-count: 3;
-        column-count:         3;
-    }
-}
-
-@media (max-width: 800px) {
-    #view_recipe {
-        -moz-column-count:    2;
-        -webkit-column-count: 2;
-        column-count:         2;
-    }
-}
-
-@media (max-width: 400px) {
-    #view_recipe {
-        -moz-column-count:    1;
-        -webkit-column-count: 1;
-        column-count:         1;
-    }
+    width: 30% !important;
+    height: auto !important;
 }
