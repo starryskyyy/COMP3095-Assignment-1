@@ -1,9 +1,15 @@
 package gbc.comp3095.assignment1.Service;
 
 import gbc.comp3095.assignment1.Entity.Plan;
+import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Repository.PlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
 
 @Service
 public class PlanService {
@@ -12,5 +18,11 @@ public class PlanService {
 
     public Plan createPlan(Plan plan) {
         return planRepository.save(plan);
+    }
+
+    public Set<Plan> getPlans(User user) {
+        LocalDate today = LocalDate.now();
+        LocalDate afterWeek = today.plusWeeks(1);
+        return planRepository.findAllByUserAndDateBetweenOrderByDateAsc(user, today, afterWeek);
     }
 }

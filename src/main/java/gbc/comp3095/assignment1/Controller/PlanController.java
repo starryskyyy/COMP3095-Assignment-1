@@ -6,17 +6,19 @@ import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.PlanService;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.UserService;
+import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PlanController {
+    @Autowired
+    private PlanService planService;
     @Autowired
     private RecipeService recipeService;
     @Autowired
@@ -29,7 +31,7 @@ public class PlanController {
         String username = ((UserDetails) principal).getUsername();
         User user = userService.getUserByUsername(username);
 
-        model.addAttribute("plans", user.getPlans());
+        model.addAttribute("plans", planService.getPlans(user));
         return "view_plan";
     }
 
@@ -51,8 +53,10 @@ public class PlanController {
         Recipe recipe = recipeService.getRecipeById(recipeId);
 
         plan.setRecipe(recipe);
+        plan.setUser(user);
+
         userService.updatePlan(user, plan);
 
-        return "add_plan";
+        return "redirect:/viewPlan";
     }
 }
