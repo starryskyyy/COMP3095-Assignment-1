@@ -2,7 +2,6 @@ package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
 import gbc.comp3095.assignment1.Entity.Recipe;
-import gbc.comp3095.assignment1.Entity.Role;
 import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.UserService;
@@ -12,14 +11,12 @@ import gbc.comp3095.assignment1.Utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
