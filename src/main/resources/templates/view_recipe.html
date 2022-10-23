@@ -19,9 +19,10 @@
 
                     <div th:text="*{name}" style="font-size: 35pt; font-weight: bold;"></div>
                     <input type="text" th:field="*{name}" th:value="*{name}" hidden>
-
-                    <button th:unless="${user} or ${param.added}" type="submit" class="btn btn-dark mt-3">Add Favorite!</button>
-                    <span th:if="${param.added}">Successfully added!</span>
+                    <div style="display: flex; justify-content: center;">
+                        <button th:unless="${user} or ${param.added}" type="submit" class="btn btn-dark mt-3">Add Favorite!</button>
+                        <button th:if="${param.added}" class="btn btn-warning mt-3">Successfully added!</button>
+                    </div>
                 </div>
                 <div id="detail_recipe" class="ms-3">
                     <h3>Description</h3>

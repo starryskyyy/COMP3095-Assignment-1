@@ -15,16 +15,18 @@
                     <a class="nav-link" href="/addPlan"><button class="btn btn-dark">Add Meal</button></a>
                 </div>
                 <div>
-                    <table class="table">
+                    <table class="table" id="view_plan">
                         <tr>
                             <th>Date</th>
                             <th>Meal Time</th>
                             <th>Recipe</th>
+                            <th></th>
                         </tr>
                         <tr th:each="plan : ${plans}">
                             <td th:text="*{plan.date}"></td>
                             <td th:text="*{plan.mealTime}"></td>
                             <td><a th:href="${'/recipe/' + plan.recipe.id}" style="text-decoration: none; color: black;"><div th:text="*{plan.recipe.name}"></div></a></td>
+                            <td><a href="deletePlan"><button class="btn btn-danger btn-sm">DELETE</button></a></td>
                         </tr>
                     </table>
                 </div>

@@ -62,3 +62,7 @@
 #detail_recipe h3 {
     font-weight: bold;
 }
+
+#view_plan td {
+    vertical-align: middle;
+}
