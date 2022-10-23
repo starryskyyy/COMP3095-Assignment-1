@@ -19,7 +19,7 @@
                 <h2 class="text-center"><b>ADD MEAL PLAN</b></h2>
 
                 <label class="form-label pt-3" for="date">Date</label>
-                <input id="date" name="date" type="date" class="form-control mb-3" th:field="*{date}" required/>
+                <input id="date" name="date" type="date" class="form-control mb-3" th:field="*{date}" th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required/>
                 <label class="form-label pt-3" for="meal_time">Meal Time</label>
 
                 <select id="meal_time" name="meal_time" class="form-control mb-3" th:field="*{mealTime}" required>

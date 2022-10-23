@@ -3,7 +3,6 @@ package gbc.comp3095.assignment1.Controller;
 import gbc.comp3095.assignment1.Entity.Role;
 import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Entity.User;
-import gbc.comp3095.assignment1.Utils.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
