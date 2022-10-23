@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -120,6 +121,7 @@ public class RecipeController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
         recipe.setUser(userService.getUserByUsername(username));
+
         // Encoding Image
         byte[] encodedFile;
         if (imageFile.isEmpty()) {
@@ -138,6 +140,17 @@ public class RecipeController {
     @PostMapping(value = "/addRecipe", params = "addbox")
     public String addIngredientBox(Recipe recipe, RedirectAttributes redirectAttributes) {
         recipe.getIngredients().add(new Ingredient());
+
+        redirectAttributes.addFlashAttribute("recipe", recipe);
+        return "redirect:addRecipe";
+    }
+
+    @PostMapping(value = "/addRecipe", params = "deletebox")
+    public String deleteIngredientBox(Recipe recipe, RedirectAttributes redirectAttributes) {
+        int ingredientSize = recipe.getIngredients().size();
+        if (ingredientSize > 0) {
+            recipe.getIngredients().remove(ingredientSize - 1);
+        }
 
         redirectAttributes.addFlashAttribute("recipe", recipe);
         return "redirect:addRecipe";
@@ -175,6 +188,7 @@ public class RecipeController {
         String username = ((UserDetails) principal).getUsername();
         User user = userService.getUserByUsername(username);
 
+        recipe.setCreatedDate(LocalDate.now());
         userService.updateFavoriteRecipe(user, recipe);
 
         redirectAttributes.addFlashAttribute("recipe", recipe);
