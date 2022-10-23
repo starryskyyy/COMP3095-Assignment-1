@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments :: html_head">
+</head>
+<body>
+    <div th:replace="fragments :: header">
+    </div>
+    <div th:each="plan : ${plans}"></div>
+</body>
+</html>

@@ -22,6 +22,17 @@ public class PlanController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/viewPlan")
+    public String viewPlan(Model model) {
+        // Getting currently logged-in user
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User user = userService.getUserByUsername(username);
+
+        model.addAttribute("plans", user.getPlans());
+        return "view_plan";
+    }
+
     @GetMapping("/addPlan")
     public String addPlanGet(Model model) {
         model.addAttribute("plan", new Plan());
