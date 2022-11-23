@@ -13,10 +13,6 @@
                 <div th:text="*{ingredient.amount}"></div>
                 <a th:href="*{'/viewMyShoppingLists/' + shopping.id + '/deleteIngredient/' + ingredient.id}" class="btn btn-danger mt-3">Delete</a>
             </div>
-
-            <div class="d-grid col-8 mx-auto mt-4">
-                <input type="submit" value="Add Ingredients" class="btn btn-dark mt-3"/>
-            </div>
         </form>
     </div>
 </body>
