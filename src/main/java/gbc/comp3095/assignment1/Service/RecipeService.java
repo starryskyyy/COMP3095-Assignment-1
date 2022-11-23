@@ -85,8 +85,11 @@ public class RecipeService {
         return returningRecipes;
     }
 
-    public String deleteRecipeById(int id) {
+    public void updateRecipe(Recipe recipe) {
+        recipeRepository.save(recipe);
+    }
+
+    public void deleteRecipeById(int id) {
         recipeRepository.deleteById(id);
-        return "Recipe has been deleted.";
     }
 }
