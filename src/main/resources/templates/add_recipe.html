@@ -41,7 +41,7 @@
                     <li th:each="ingredient, i : *{ingredients}" style="list-style-type: decimal-leading-zero;" class="mt-2">
                         <div style="display: flex;">
                             <input type="text" class="form-control" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) Onion"></input>
-                            <input type="text" class="form-control ms-1" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) 300g"></input>
+                            <input type="text" class="form-control ms-1" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" placeholder="ex) 300g"></input>
                         </div>
                     </li>
                 </ol>
