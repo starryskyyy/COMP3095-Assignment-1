@@ -10,6 +10,7 @@
 
 package gbc.comp3095.assignment1.Service;
 
+import gbc.comp3095.assignment1.Entity.Ingredient;
 import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Repository.RecipeRepository;
 import gbc.comp3095.assignment1.Entity.Recipe;
@@ -45,6 +46,16 @@ public class RecipeService {
 
     public Recipe getRecipeById(int id) {
         return recipeRepository.findById(id).orElse(null);
+    }
+
+    public Ingredient getIngredientById(int recipeId, int ingredientId) {
+        List<Ingredient> ingredients = Objects.requireNonNull(recipeRepository.findById(recipeId).orElse(null)).getIngredients();
+
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient.getId() == ingredientId) return ingredient;
+        }
+
+        return null;
     }
 
     public List<Recipe> getRecipeByUserId(Long userId) {
