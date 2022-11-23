@@ -51,6 +51,7 @@
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <a href="/viewProfile"><button class="btn btn-sm mx-2"><div sec:authentication="name"></div></button></a>
+                    <a href="/viewMyShoppingLists"><button class="btn btn-sm mx-2">My Shopping List</button></a>
                     <a href="/logout"><button class="btn btn-dark mx-2" style="border-radius: 20px; width: 100px;">Logout</button></a>
                 </div>
             </div>
