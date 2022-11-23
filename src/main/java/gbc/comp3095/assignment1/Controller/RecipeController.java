@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -155,10 +156,11 @@ public class RecipeController {
 
         for (Recipe r: user.getFavoriteRecipes()) {
             if (r.getId() == id) {
-                model.addAttribute("user", user);
+                model.addAttribute("isFavorite", true);
             }
         }
 
+        model.addAttribute("user", user);
         model.addAttribute("recipe", recipe);
         return "view_recipe";
     }
@@ -175,5 +177,86 @@ public class RecipeController {
 
         redirectAttributes.addFlashAttribute("recipe", recipe);
         return "redirect:recipe/" + recipe.getId() + "?added=true";
+    }
+
+    @GetMapping("/updateRecipe/{id}")
+    public String updateIngredientsInRecipeGet(
+            Model model,
+            @PathVariable int id,
+            @ModelAttribute("recipe") Recipe updatedRecipe)
+    {
+        Recipe recipe;
+
+        if (updatedRecipe.getName() != null) {
+            recipe = updatedRecipe;
+        } else {
+            recipe = recipeService.getRecipeById(id);
+        }
+
+        model.addAttribute("recipe", recipe);
+        return "update_recipe";
+    }
+
+    @PostMapping(value = "/updateRecipe/{id}", params = "addbox")
+    public String updateIngredientAddBox(Recipe postedRecipe, @PathVariable int id, RedirectAttributes redirectAttributes) {
+        postedRecipe.getIngredients().add(new Ingredient());
+
+        Recipe recipe = recipeService.getRecipeById(id);
+        recipe.setIngredients(postedRecipe.getIngredients());
+
+        redirectAttributes.addFlashAttribute("recipe", recipe);
+        return "redirect:/updateRecipe/" + id;
+    }
+
+    @PostMapping(value = "/updateRecipe/{id}", params = "deletebox")
+    public String updateIngredientDeleteBox(Recipe postedRecipe, @PathVariable int id, RedirectAttributes redirectAttributes) {
+        int ingredientSize = postedRecipe.getIngredients().size();
+        if (ingredientSize > 0) {
+            postedRecipe.getIngredients().remove(ingredientSize - 1);
+        }
+
+        Recipe recipe = recipeService.getRecipeById(id);
+        recipe.setIngredients(postedRecipe.getIngredients());
+
+        redirectAttributes.addFlashAttribute("recipe", recipe);
+        return "redirect:/updateRecipe/" + id;
+    }
+
+    @PostMapping(value = "/updateRecipe/{recipeId}", params = "delete")
+    public String deleteIngredients(
+            Recipe postedRecipe,
+            @PathVariable int recipeId,
+            @RequestParam("delete") int ingredientId,
+            RedirectAttributes redirectAttributes)
+    {
+        List<Ingredient> ingredients = postedRecipe.getIngredients();
+        // delete ingredient from a list
+        for (int i = 0; i < ingredients.size(); ++i) {
+            if (ingredients.get(i).getId() == ingredientId) {
+                ingredients.remove(i);
+                break;
+            }
+        }
+
+        Recipe recipe = recipeService.getRecipeById(recipeId);
+        recipe.setIngredients(ingredients);
+
+        redirectAttributes.addFlashAttribute("recipe", recipe);
+        return "redirect:/updateRecipe/" + recipeId;
+    }
+
+    @PostMapping("/updateRecipe/{id}")
+    public String updateIngredientsInRecipePost(Recipe postedRecipe, @PathVariable int id) {
+        Recipe recipe = recipeService.getRecipeById(id);
+        List<Ingredient> ingredients = postedRecipe.getIngredients();
+
+        for (int i = 0; i < ingredients.size(); ++i) {
+            if (ingredients.get(i).getName() == "" || ingredients.get(i).getAmount() == "") ingredients.remove(i);
+        }
+
+        recipe.setIngredients(ingredients);
+        recipeService.updateRecipe(recipe);
+
+        return "redirect:/recipe/" + id;
     }
 }
