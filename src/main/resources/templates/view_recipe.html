@@ -22,6 +22,7 @@
                     <div style="display: flex; justify-content: center;">
                         <button th:unless="${user} or ${param.added}" type="submit" class="btn btn-dark mt-3">Add Favorite!</button>
                         <button th:if="${param.added}" class="btn btn-warning mt-3">Successfully added!</button>
+                        <a th:href="@{/recipe/{id}/addShopping(id=*{id})}" class="btn btn-dark mt-3">Add Shopping List</a>
                     </div>
                 </div>
                 <div id="detail_recipe" class="ms-3">
