@@ -17,6 +17,7 @@ import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,10 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
+    }
+
+    public User findUserByEmailAndUsername(String email, String username) {
+        return userRepository.findUserByEmailAndUsername(email, username);
     }
 
     public User updateUser(User user) {

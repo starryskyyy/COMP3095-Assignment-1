@@ -11,6 +11,7 @@
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Role;
+import gbc.comp3095.assignment1.Repository.UserRepository;
 import gbc.comp3095.assignment1.Service.UserService;
 import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
+
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
     public String login() {
@@ -55,5 +60,46 @@ public class UserController {
 
         model.addAttribute("user", user);
         return "view_profile";
+    }
+
+    @GetMapping(path = "/loadForgotPassword")
+    public String loadForgotPassword() {
+        return "forget_password";
+    }
+
+    @GetMapping(path ="/loadResetPassword/{username}")
+    public String loadResetPassword(@PathVariable String username, Model model) {
+        model.addAttribute("username",username);
+        return "reset_password";
+    }
+
+    @PostMapping("/forgotPassword")
+    public String forgotPassword(@RequestParam String email, @RequestParam String username, HttpSession session){
+        User user = userService.findUserByEmailAndUsername(email, username);
+
+        if(user != null){
+            return "redirect:/loadResetPassword/" + user.getUsername();
+        } else {
+            session.setAttribute("msg", "invalid credentials");
+            return "forget_password";
+        }
+    }
+
+    @PostMapping(path = "/changePassword")
+    public String resetPassword(@RequestParam String password, @RequestParam(required = false, name="username") String username, HttpSession session) {
+
+        User user = userService.getUserByUsername(username);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
+
+        User updateUser = userService.updateUser(user);
+
+        if(updateUser != null)
+        {
+            session.setAttribute("msg", "Password Changed Successfully");
+        }
+
+        return "redirect:/loadForgotPassword";
     }
 }
