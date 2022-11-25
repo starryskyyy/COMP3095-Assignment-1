@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -258,5 +257,23 @@ public class RecipeController {
         recipeService.updateRecipe(recipe);
 
         return "redirect:/recipe/" + id;
+    }
+
+    @GetMapping("/recipe/{recipeId}/viewSteps")
+    public String viewSteps(
+            Model model,
+            @PathVariable int recipeId,
+            @ModelAttribute("recipe") Recipe viewSteps) {
+        Recipe recipe;
+
+        if (viewSteps.getName() != null) {
+            recipe = viewSteps;
+        } else {
+            recipe = recipeService.getRecipeById(recipeId);
+        }
+
+        model.addAttribute("recipe", recipe);
+
+        return "view_steps";
     }
 }
