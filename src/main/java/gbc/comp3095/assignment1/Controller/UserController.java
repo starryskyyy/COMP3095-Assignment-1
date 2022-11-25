@@ -29,8 +29,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private BCryptPasswordEncoder passwordEncoder;
-
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -69,7 +67,7 @@ public class UserController {
 
     @GetMapping(path ="/loadResetPassword/{username}")
     public String loadResetPassword(@PathVariable String username, Model model) {
-        model.addAttribute("username",username);
+        model.addAttribute("username", username);
         return "reset_password";
     }
 
@@ -86,12 +84,13 @@ public class UserController {
     }
 
     @PostMapping(path = "/changePassword")
-    public String resetPassword(@RequestParam String password, @RequestParam(required = false, name="username") String username, HttpSession session) {
+    public String resetPassword(@RequestParam String password, @RequestParam String username, HttpSession session) {
 
         User user = userService.getUserByUsername(username);
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(password);
-        user.setPassword(encodedPassword);
+        String encryptedPassword = passwordEncoder.encode(password);
+        user.setPassword(encryptedPassword);
 
         User updateUser = userService.updateUser(user);
 
