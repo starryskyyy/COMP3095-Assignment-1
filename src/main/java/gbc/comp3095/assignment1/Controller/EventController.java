@@ -1,11 +1,9 @@
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Event;
-import gbc.comp3095.assignment1.Entity.Plan;
 import gbc.comp3095.assignment1.Entity.Recipe;
 import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.EventService;
-import gbc.comp3095.assignment1.Service.PlanService;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.UserService;
 import org.springframework.ui.Model;
@@ -78,22 +76,9 @@ public class EventController {
     }
 
     @PostMapping("/updateInfoEvent/{eventId}")
-    public String updateEventPost(Event event, Recipe recipe, @PathVariable int eventId, @RequestParam(name = "recipeid", required = false) Integer recipeId) {
+    public String updateEventPost(Event event, @PathVariable int eventId, @RequestParam(name = "recipeid", required = false) Integer recipeId) {
 
-        Event currentEvent = eventService.getEventById(eventId);
-
-        if(recipeId == null){
-            recipe = recipeService.getRecipeById(currentEvent.getRecipe().getId());
-        }
-        else{
-            recipe = recipeService.getRecipeById(recipeId);
-        }
-
-        currentEvent.setDate(event.getDate());
-        currentEvent.setRecipe(recipe);
-        currentEvent.setEventName(event.getEventName());
-        currentEvent = eventRepository.save(event);
-
+        eventService.updateEvent(event, eventId, recipeId);
 
         return "redirect:/viewEvent";
     }

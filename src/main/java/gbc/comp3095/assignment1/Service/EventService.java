@@ -1,6 +1,7 @@
 package gbc.comp3095.assignment1.Service;
 
 import gbc.comp3095.assignment1.Entity.Event;
+import gbc.comp3095.assignment1.Entity.Recipe;
 import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.Set;
 public class EventService {
     @Autowired
     private EventRepository eventRepository;
+    @Autowired
+    private RecipeService recipeService;
 
     public Event createEvent(Event event) {
         return eventRepository.save(event);
@@ -33,5 +36,23 @@ public class EventService {
         return eventRepository.findById(id).orElse(null);
     }
 
+    public Event updateEvent(Event event, int eventId, Integer recipeId){
+
+        Event currentEvent = getEventById(eventId);
+        Recipe recipe;
+        if(recipeId == null){
+            recipe = recipeService.getRecipeById(currentEvent.getRecipe().getId());
+        }
+        else{
+            recipe = recipeService.getRecipeById(recipeId);
+        }
+
+        currentEvent.setDate(event.getDate());
+        currentEvent.setRecipe(recipe);
+        currentEvent.setEventName(event.getEventName());
+        currentEvent = eventRepository.save(event);
+
+        return currentEvent;
+    }
 
 }
