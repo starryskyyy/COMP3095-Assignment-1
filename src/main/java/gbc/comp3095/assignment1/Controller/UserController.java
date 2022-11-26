@@ -101,4 +101,17 @@ public class UserController {
 
         return "redirect:/loadForgotPassword";
     }
+
+    @GetMapping("/editProfile/{username}")
+    public String updateProfileGet(Model model, @PathVariable String username){
+        User user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+        return "/update_profile";
+    }
+
+    @PostMapping("/updateProfile")
+    public String updateProfile(@ModelAttribute User user) {
+        userService.updateUser(user);
+        return "/view_profile";
+    }
 }

@@ -110,4 +110,5 @@ public class UserService {
         user.getEvents().remove(event);
         userRepository.save(user);
     }
+
 }

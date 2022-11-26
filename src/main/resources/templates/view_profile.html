@@ -41,6 +41,11 @@
                         <td class="view_prof_col1">Date of Birth :</td>
                         <td><div th:text="${user.birthday}"></div></td>
                     </tr>
+                    <tr>
+                        <div class="d-grid col-8 mx-auto pt-3 text-center">
+                            <a class="text-reset" th:href="@{/editProfile/{username}(username=${user.username})}">Update Profile</a>
+                        </div>
+                    </tr>
                 </table>
             </div>
         </div>
