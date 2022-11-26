@@ -47,6 +47,9 @@ public class User {
     @OneToMany(cascade=CascadeType.ALL)
     private Set<Plan> plans;
 
+    @OneToMany(cascade=CascadeType.ALL)
+    private Set<Event> events;
+
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
