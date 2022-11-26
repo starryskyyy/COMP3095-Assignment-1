@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import gbc.comp3095.assignment1.Repository.EventRepository;
 
 @Controller
 public class EventController {
@@ -24,6 +25,8 @@ public class EventController {
     private RecipeService recipeService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private EventRepository eventRepository;
 
     @GetMapping("/viewEvent")
     public String viewEvent(Model model) {
@@ -56,7 +59,7 @@ public class EventController {
         event.setRecipe(recipe);
         event.setUser(user);
 
-        userService.updateEvent(user, event);
+        userService.addEvent(user, event);
 
         return "redirect:/viewEvent";
     }
@@ -74,12 +77,26 @@ public class EventController {
         return "update_event";
     }
 
-   /* @PostMapping("/updateEvent/{eventId}")
-    public String updateEventPost( Recipe postEvent, @PathVariable int id) {
+    @PostMapping("/updateInfoEvent/{eventId}")
+    public String updateEventPost(Event event, Recipe recipe, @PathVariable int eventId, @RequestParam(name = "recipeid", required = false) Integer recipeId) {
+
+        Event currentEvent = eventService.getEventById(eventId);
+
+        if(recipeId == null){
+            recipe = recipeService.getRecipeById(currentEvent.getRecipe().getId());
+        }
+        else{
+            recipe = recipeService.getRecipeById(recipeId);
+        }
+
+        currentEvent.setDate(event.getDate());
+        currentEvent.setRecipe(recipe);
+        currentEvent.setEventName(event.getEventName());
+        currentEvent = eventRepository.save(event);
 
 
         return "redirect:/viewEvent";
-    }*/
+    }
 
     @GetMapping("/deleteEvent/{eventId}")
     public String deletePlan(@PathVariable int eventId) {

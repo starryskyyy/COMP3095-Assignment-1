@@ -11,4 +11,5 @@ import java.util.Set;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
     Set<Event> findAllByUserAndDateBetweenOrderByDateAsc(User user, LocalDate today, LocalDate sevenDaysAfter);
+
 }

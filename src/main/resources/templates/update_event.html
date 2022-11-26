@@ -13,7 +13,7 @@
 <div th:replace="fragments :: header">
 </div>
 <div  class="container my-4" style="justify-content: center; align-items: center; width: 40%;">
-  <form method="POST" th:object="${event}" class="form-signup">
+  <form method="POST" th:action="@{/updateInfoEvent/{eventId}(eventId=${event.id})}" th:object="${event}" class="form-signup">
     <div class="bg-light p-5" style="border-radius: 5%;">
 
       <h2 class="text-center"><b>UPDATE EVENT</b></h2>
@@ -27,7 +27,7 @@
       <div th:object="${recipes}">
         <label class="form-label pt-3" for="recipe">Recipe</label>
         <select id="recipe" name="recipeid" class="form-control mb-3" required>
-          <option value="" disabled selected hidden  th:value="${event.recipe}" th:text="${event.recipe.name}"></option>
+          <option value="" disabled selected hidden  th:value="${event.recipe.id}" th:text="${event.recipe.name}"></option>
           <option th:each="recipe, i : ${recipes}" th:value="${recipe.id}" th:text="${recipe.name}"></option>
         </select>
       </div>

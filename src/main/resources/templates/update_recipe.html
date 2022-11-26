@@ -13,7 +13,7 @@
 <div th:replace="fragments :: header">
 </div>
 <div class="container my-4" style="justify-content: center; align-items: center; width: 40%;">
-    <form method="POST" th:object="${recipe}" class="form-signup">
+    <form method="POST" th:action="@{/updateEvent/event.id}" th:object="${recipe}" class="form-signup">
         <div class="bg-light p-5" style="border-radius: 5%;">
 
             <h2 class="text-center"><b>Update Ingredients</b></h2>

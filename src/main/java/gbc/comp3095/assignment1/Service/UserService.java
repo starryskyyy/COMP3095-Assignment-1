@@ -13,6 +13,7 @@ package gbc.comp3095.assignment1.Service;
 import gbc.comp3095.assignment1.Entity.Event;
 import gbc.comp3095.assignment1.Entity.Plan;
 import gbc.comp3095.assignment1.Entity.Recipe;
+import gbc.comp3095.assignment1.Repository.EventRepository;
 import gbc.comp3095.assignment1.Repository.UserRepository;
 import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+
 
     public User createUser(User user) {
         return userRepository.save(user);
@@ -98,14 +101,13 @@ public class UserService {
         return "User has been deleted.";
     }
 
-    public User updateEvent(User user, Event event) {
+    public User addEvent(User user, Event event) {
 
         user.getEvents().add(event);
         userRepository.save(user);
 
         return user;
     }
-
     public void deleteEventById(User user,  Event event, int id) {
         user.getEvents().remove(event);
         userRepository.save(user);
