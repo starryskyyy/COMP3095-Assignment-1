@@ -13,10 +13,10 @@
     <div th:replace="fragments :: header">
     </div>
     <div class="container my-4 d-flex" style="justify-content: center; align-items: center; height: 80vh;">
-        <div th:object="${user}" class="bg-light p-5" style="border-radius: 20px; width: 40%;">
+        <div th:object="${user}" class="bg-light p-5" style="width: 40%;">
             <h2 class="text-center"><b>USER PROFILE</b></h2>
-            <div style="display: flex; justify-content: center;">
-                <table>
+            <div class="mt-3">
+                <table class="table">
                     <tr>
                         <td class="view_prof_col1">Username :</td>
                         <td><div th:text="${user.username}"></div></td>
@@ -41,12 +41,10 @@
                         <td class="view_prof_col1">Date of Birth :</td>
                         <td><div th:text="${user.birthday}"></div></td>
                     </tr>
-                    <tr>
-                        <div class="d-grid col-8 mx-auto pt-3 text-center">
-                            <a class="text-reset" th:href="@{/editProfile/{username}(username=${user.username})}">Update Profile</a>
-                        </div>
-                    </tr>
                 </table>
+                <div class="d-grid col-6 mx-auto text-center btn btn-dark">
+                    <a class="text-decoration-none text-white" th:href="@{/editProfile/{username}(username=${user.username})}">Update Profile</a>
+                </div>
             </div>
         </div>
     </div>
