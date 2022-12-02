@@ -35,6 +35,12 @@
                         <a th:if="${#authorization.authentication.name} == ${#strings.toString(user.username)}" th:href="*{'/updateRecipe/' + id}" class="btn btn-dark mx-1 px-4 py-2">Edit Ingredients</a>
                     </div>
 
+                    <input type="text" th:field="*{instruction}" th:value="*{instruction}" hidden>
+                    <div th:each="ingredient, i : *{ingredients}">
+                        <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" hidden>
+                        <input type="text" class="form-control mb-3" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" hidden>
+                    </div>
+
                 </div>
             </div>
         </form>
