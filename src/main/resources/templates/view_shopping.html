@@ -6,14 +6,32 @@
 <body>
     <div th:replace="fragments :: header">
     </div>
-    <div style="justify-content: center; align-items: center; height: 80vh;">
-        <form method="POST" class="bg-light">
-            <div th:each="ingredient : ${shopping.ingredients}">
-                <div th:text="*{ingredient.name}"></div>
-                <div th:text="*{ingredient.amount}"></div>
-                <a th:href="*{'/viewMyShoppingLists/' + shopping.id + '/deleteIngredient/' + ingredient.id}" class="btn btn-danger mt-3">Delete</a>
-            </div>
-        </form>
+    <div class="container">
+        <div class="container mx-auto" style="width: 700px; margin: 5rem 0 6rem 0;">
+            <form method="POST">
+                <div class="pb-4">
+                    <h2 class="text-center"><b>Shopping List for Recipe</b></h2>
+                </div>
+                <div class="bg-light border border-2" style="padding: 3rem 3rem 2rem 3rem;">
+                    <div class="row justify-content-center" th:each="ingredient : ${shopping.ingredients}">
+                        <div class="row" style="height: 50px; display: flex; align-items: center; text-align: center;">
+                            <div class="col">
+                                <div th:text="*{ingredient.name}"></div>
+                            </div>
+                            <div class="col">
+                                <div th:text="*{ingredient.amount}"></div>
+                            </div>
+                            <div class="col">
+                                <a th:href="*{'/viewMyShoppingLists/' + shopping.id + '/deleteIngredient/' + ingredient.id}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
