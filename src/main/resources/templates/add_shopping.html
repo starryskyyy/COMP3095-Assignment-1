@@ -1,23 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: html_head">
 </head>
-<body>
+<body style="
+    background: url('images/add_recipe_img.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;">
+
     <div th:replace="fragments :: header">
     </div>
-    <div style="justify-content: center; align-items: center; height: 80vh;">
-        <form method="POST" class="bg-light">
-            <div th:each="ingredient : ${ingredients}">
-                <input type="checkbox" name="ingredients" th:value="*{ingredient.id}"></input>
-                <div th:text="*{ingredient.name}"></div>
-                <div th:text="*{ingredient.amount}"></div>
-            </div>
+    <div class="container">
+        <div class="container mx-auto" style="width: 700px; margin: 5rem 0 6rem 0;">
+            <form method="POST">
+                <div class="pb-4">
+                    <h2 class="text-center"><b>List of Ingredients</b></h2>
+                </div>
+                <div class="bg-light border border-2" style="padding: 3rem 2rem 2rem 2rem;">
+                    <div class="row justify-content-center" th:each="ingredient : ${ingredients}">
+                        <div class="row">
+                            <div class="col-1">
+                                <input type="checkbox" name="ingredients" th:value="*{ingredient.id}">
+                            </div>
+                            <div class="col-6">
+                                <div th:text="*{ingredient.name}"></div>
+                            </div>
+                            <div class="col-3">
+                                <div th:text="*{ingredient.amount}"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                        </div>
+                    </div>
+                <div class="d-grid col-6 mx-auto mt-1">
+                    <input type="submit" value="Add to Shopping Cart" class="btn btn-dark mt-3 rounded-pill"/>
+                </div>
+                </div>
 
-            <div class="d-grid col-8 mx-auto mt-4">
-                <input type="submit" value="Add Ingredients" class="btn btn-dark mt-3"/>
-            </div>
-        </form>
+            </form>
+        </div>
+
     </div>
 </body>
 </html>
