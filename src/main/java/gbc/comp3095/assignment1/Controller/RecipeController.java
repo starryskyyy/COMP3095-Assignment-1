@@ -112,6 +112,10 @@ public class RecipeController {
             encodedFile = Base64.getEncoder().encode(imageFile.getBytes());
         }
 
+        // replace new line character with double <br />
+        String instruction = recipe.getInstruction();
+        recipe.setInstruction(instruction.replace("\r\n", "<br /><br />"));
+
         String encodedFileString = new String(encodedFile, StandardCharsets.UTF_8);
         recipe.setImageFile(encodedFileString);
         recipeService.createRecipe(recipe);

@@ -12,7 +12,7 @@
                 <div class="pb-4">
                     <h2 class="text-center"><b>Method</b></h2>
                 </div>
-                <div th:text="*{instruction}"></div>
+                <div th:utext="*{instruction}"></div>
                 <input type="text" th:field="*{instruction}" th:value="*{instruction}" hidden>
             </form>
         </div>
