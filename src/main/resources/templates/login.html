@@ -28,8 +28,11 @@
                 <div class="alert alert-danger text-center mt-3" th:if="${param.error}" >
                   Invalid Username or Password
                 </div>
-                <div class="alert text-center mt-3" th:if="${param.logout}" >
-                  Successfully logged out!
+                <div class="alert alert-success text-center mt-3" th:if="${param.password_reset_success}" >
+                  Successfully reset password!
+                </div>
+                <div class="alert alert-danger text-center mt-3" th:if="${param.password_reset_error}" >
+                    Password reset failed..
                 </div>
 
                 <div class="d-grid mx-auto">

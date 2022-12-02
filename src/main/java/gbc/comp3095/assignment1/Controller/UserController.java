@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 @Controller
 public class UserController {
@@ -72,34 +73,42 @@ public class UserController {
     }
 
     @PostMapping("/forgotPassword")
-    public String forgotPassword(@RequestParam String email, @RequestParam String username, HttpSession session){
+    public String forgotPassword(@RequestParam String email, @RequestParam String username){
         User user = userService.findUserByEmailAndUsername(email, username);
 
         if(user != null){
             return "redirect:/loadResetPassword/" + user.getUsername();
         } else {
-            session.setAttribute("msg", "invalid credentials");
-            return "forget_password";
+            return "redirect:/loadForgotPassword?error";
         }
     }
 
     @PostMapping(path = "/changePassword")
-    public String resetPassword(@RequestParam String password, @RequestParam String username, HttpSession session) {
-
-        User user = userService.getUserByUsername(username);
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encryptedPassword = passwordEncoder.encode(password);
-        user.setPassword(encryptedPassword);
-
-        User updateUser = userService.updateUser(user);
-
-        if(updateUser != null)
-        {
-            session.setAttribute("msg", "Password Changed Successfully");
+    public String resetPassword(
+            @RequestParam String password,
+            @RequestParam String cpassword,
+            @RequestParam String username)
+    {
+        if (!Objects.equals(password, cpassword)) {
+            return "redirect:/loadResetPassword/" + username + "?password_error";
+        } else if (password.isEmpty() || cpassword.isEmpty()) {
+            return "redirect:/loadResetPassword/" + username + "?password_empty_error";
         }
+        else {
+            User user = userService.getUserByUsername(username);
 
-        return "redirect:/loadForgotPassword";
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encryptedPassword = passwordEncoder.encode(password);
+            user.setPassword(encryptedPassword);
+
+            User updateUser = userService.updateUser(user);
+
+            if(updateUser != null) {
+                return "redirect:/login?password_reset_success";
+            } else {
+                return "redirect:/login?password_reset_error";
+            }
+        }
     }
 
     @GetMapping("/editProfile/{username}")
