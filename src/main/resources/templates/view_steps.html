@@ -4,18 +4,18 @@
 <head th:replace="fragments :: html_head">
 </head>
 <body>
-<div th:replace="fragments :: header">
-</div>
-<div style="justify-content: center; align-items: center; height: 80vh;">
-    <form method="POST" th:action="@{/recipe}" th:object="${recipe}">
-        <div style="display: flex;">
-            <div style="width: 500px;">
-                <h3 class="mt-2">Steps:</h3>
+    <div th:replace="fragments :: header">
+    </div>
+    <div class="container">
+        <div class="container mx-auto" style="width: 700px; margin: 5rem 0 6rem 0;">
+            <form method="POST" th:action="@{/recipe}" th:object="${recipe}">
+                <div class="pb-4">
+                    <h2 class="text-center"><b>Method</b></h2>
+                </div>
                 <div th:text="*{instruction}"></div>
                 <input type="text" th:field="*{instruction}" th:value="*{instruction}" hidden>
-            </div>
+            </form>
         </div>
-    </form>
-</div>
+    </div>
 </body>
 </html>
