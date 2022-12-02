@@ -66,3 +66,7 @@
 #view_plan td {
     vertical-align: middle;
 }
+
+input[type="file"] {
+    display: none;
+}
