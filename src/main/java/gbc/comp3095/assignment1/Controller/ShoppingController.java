@@ -7,14 +7,16 @@ import gbc.comp3095.assignment1.Entity.User;
 import gbc.comp3095.assignment1.Service.RecipeService;
 import gbc.comp3095.assignment1.Service.ShoppingService;
 import gbc.comp3095.assignment1.Service.UserService;
+import gbc.comp3095.assignment1.Utils.CsvGenerator;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class ShoppingController {
     private RecipeService recipeService;
     @Autowired
     private ShoppingService shoppingService;
+
+    @Autowired
+    private CsvGenerator csvGenerator;
 
     @GetMapping("/viewMyShoppingLists")
     public String viewShoppingLists(Model model) {
@@ -44,6 +49,19 @@ public class ShoppingController {
         model.addAttribute("shopping", shoppingService.getShoppingById(id));
 
         return "view_shopping";
+    }
+
+    @GetMapping("/viewMyShoppingLists/{id}/export")
+    public void exportShoppingList(
+            HttpServletResponse response,
+            @PathVariable int id) throws IOException
+    {
+        Shopping shopping = shoppingService.getShoppingById(id);
+
+        response.setContentType("text/csv");
+        response.addHeader("Content-Disposition", "attachment; filename=\"shopping_list.csv\"");
+
+        csvGenerator.writeIngredientsToCSV(shopping.getIngredients(), response.getWriter());
     }
 
     @GetMapping("/viewMyShoppingLists/{shoppingId}/deleteIngredient/{ingredientId}")
