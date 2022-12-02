@@ -16,7 +16,7 @@
 
         <form method="POST" th:action="@{/login}" class="form-signin">
 
-            <div class="bg-light p-5" style="border-radius: 5%;">
+            <div class="bg-light" style="border-radius: 5%; padding: 2rem 5rem;">
                 <h2 class="text-center"><b>LOGIN</b></h2>
 
                 <label class="form-label pt-3" for="username">User Name</label>
@@ -32,17 +32,17 @@
                   Successfully logged out!
                 </div>
 
-                <div class="d-grid col-8 mx-auto">
+                <div class="d-grid mx-auto">
                   <button type="submit" class="btn btn-dark">Sign In</button>
                 </div>
 
-                <div class="d-grid col-8 mx-auto pt-3 text-center">
+                <div class="d-grid mx-auto pt-3 text-center">
+                    <a class="text-reset" href="/loadForgotPassword">Forgot Password?</a>
+                    <h6 class="pt-2">or</h6>
+                </div>
+                <div class="d-grid mx-auto pt-1 text-center">
                   <h6>Need an account?</h6>
                   <a class="text-reset" href="/signup">Sign Up</a>
-                </div>
-                <div class="d-grid col-8 mx-auto pt-3 text-center">
-                    <h6>Forgotten your password?</h6>
-                    <a class="text-reset" href="/loadForgotPassword">Forget Password</a>
                 </div>
 
           </div>
