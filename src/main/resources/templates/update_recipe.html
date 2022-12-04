@@ -3,17 +3,17 @@
 
 <head th:replace="fragments :: html_head">
 </head>
-<body style="
-    background: url('images/add_recipe_img.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;">
+<body th:style="
+    'background: url(' + @{/images/add_recipe_img.jpg} + ') no-repeat center center fixed;' +
+    '-webkit-background-size: cover;' +
+    '-moz-background-size: cover;' +
+    '-o-background-size: cover;' +
+    'background-size: cover;'">
     <div th:replace="fragments :: header">
     </div>
     <div class="container mx-auto" style="width: 800px; margin: 5rem 0 6rem 0;">
         <form method="POST" th:object="${recipe}" class="form-signup">
-            <div class="bg-light p-5">
+            <div class="bg-light p-5 bg-opacity-75">
 
                 <h2 class="text-center"><b>EDIT INGREDIENTS</b></h2>
                 <div class="d-flex justify-content-center pt-3">
