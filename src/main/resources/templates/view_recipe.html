@@ -19,8 +19,8 @@
                     <div th:text="*{name}" style="font-size: 30pt; font-weight: bold;"></div>
                     <input type="text" th:field="*{name}" th:value="*{name}" hidden>
                     <div style="display: flex; justify-content: center;">
-                        <button th:unless="${isFavorite} or ${param.added}" type="submit" class="btn btn-outline-success mt-3">Add Favorite!</button>
-                        <button th:if="${param.added}" class="btn btn-warning mt-3">Successfully added!</button>
+                        <button th:unless="${isFavorite} or ${param.added}" type="submit" class="btn btn-outline-success mt-3" style="width: 210px;">Add Favorite!</button>
+                        <button th:if="${param.added}" class="btn btn-success mt-3" style="width: 210px;" disabled>Successfully added</button>
 
                     </div>
                 </div>
