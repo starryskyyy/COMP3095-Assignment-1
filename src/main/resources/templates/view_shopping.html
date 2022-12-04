@@ -29,7 +29,9 @@
                             <hr>
                         </div>
                     </div>
-                    <a th:href="${'/viewMyShoppingLists/' + shopping.id + '/export'}" class="btn btn-success">Export CSV</a>
+                    <div class="d-flex justify-content-end">
+                        <a th:href="${'/viewMyShoppingLists/' + shopping.id + '/export'}" class="btn btn-success btn-sm">Export list as CSV</a>
+                    </div>
                 </div>
             </form>
         </div>
