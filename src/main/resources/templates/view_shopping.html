@@ -10,7 +10,7 @@
         <div class="container mx-auto" style="width: 700px; margin: 5rem 0 6rem 0;">
             <form method="POST">
                 <div class="pb-4">
-                    <h2 class="text-center"><b>Shopping List for Recipe</b></h2>
+                    <h2 class="text-center"><b>Shopping List for Recipe <div th:text="${shopping.recipe.name}"></div></b></h2>
                 </div>
                 <div class="bg-light border border-2" style="padding: 3rem 3rem 2rem 3rem;">
                     <div class="row justify-content-center" th:each="ingredient : ${shopping.ingredients}">

@@ -113,6 +113,6 @@ public class ShoppingController {
         shopping.setIngredients(ingredients);
         shoppingService.createShopping(shopping);
 
-        return "redirect:";
+        return "redirect:/viewMyShoppingLists";
     }
 }
