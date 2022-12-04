@@ -9,47 +9,46 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;">
+    <div th:replace="fragments :: header">
+    </div>
+    <div class="container mx-auto" style="width: 800px; margin: 5rem 0 6rem 0;">
+        <form method="POST" th:object="${recipe}" class="form-signup">
+            <div class="bg-light p-5">
 
-<div th:replace="fragments :: header">
-</div>
-<div class="container my-4" style="justify-content: center; align-items: center; width: 40%;">
-    <form method="POST" th:object="${recipe}" class="form-signup">
-        <div class="bg-light p-5" style="border-radius: 5%;">
-
-            <h2 class="text-center"><b>Update Ingredients</b></h2>
-
-            <img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}" style="width: 80%;">
-
-            <h4 th:text="*{name}"></h4>
-            <input type="text" th:field="*{name}" th:value="*{name}" hidden />
-
-            <label class="form-label pt-3">Ingredients</label>
-
-            <div style="display: flex; justify-content: center;" class="mb-2">
-                <div class="d-grid col-4 mx-1">
-                    <input type="submit" name="addbox" value="Add Ingredient Box" />
+                <h2 class="text-center"><b>EDIT INGREDIENTS</b></h2>
+                <div class="d-flex justify-content-center pt-3">
+                    <img th:src="${'data:image/*;charset=utf-8;base64,' + recipe.imageFile}" style="width: 80%;">
                 </div>
-                <div class="d-grid col-2 mx-1">
-                    <input type="submit" name="deletebox" value="Delete" />
-                </div>
-            </div>
+                <h4 class="text-center pt-3" th:text="*{name}"></h4>
 
-            <ol>
-                <li th:each="ingredient, i : *{ingredients}" style="list-style-type: decimal-leading-zero;" class="mt-2">
-                    <div style="display: flex;">
-                        <input type="text" class="form-control" th:field="*{ingredients[__${i.index}__].id}" th:value="*{ingredients[__${i.index}__].id}" hidden></input>
-                        <input type="text" class="form-control" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) Onion"></input>
-                        <input type="text" class="form-control ms-1" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" placeholder="ex) 300g"></input>
-                        <button type="submit" name="delete" th:value="*{ingredients[__${i.index}__].id}" class="btn btn-danger mt-3">Delete</button>
+                <input type="text" th:field="*{name}" th:value="*{name}" hidden />
+
+                <div style="display: flex; justify-content: center;" class="pt-3 mb-2">
+                    <div class="d-grid col-4 mx-1">
+                        <input type="submit" name="addbox" value="Add Ingredient Box" />
                     </div>
-                </li>
-            </ol>
+                    <div class="d-grid col-2 mx-1">
+                        <input type="submit" name="deletebox" value="Delete" />
+                    </div>
+                </div>
+                <div class="mx-3">
+                    <ol>
+                        <li th:each="ingredient, i : *{ingredients}" style="list-style-type: decimal-leading-zero;">
+                            <div style="display: flex; margin: 1rem 1rem 1rem 0;">
+                                <input type="text" class="form-control" th:field="*{ingredients[__${i.index}__].id}" th:value="*{ingredients[__${i.index}__].id}" hidden></input>
+                                <input type="text" class="form-control ms-1" th:field="*{ingredients[__${i.index}__].name}" th:value="*{ingredients[__${i.index}__].name}" placeholder="ex) Onion"></input>
+                                <input type="text" class="form-control ms-2" th:field="*{ingredients[__${i.index}__].amount}" th:value="*{ingredients[__${i.index}__].amount}" placeholder="ex) 300g"></input>
+                                <button type="submit" name="delete" th:value="*{ingredients[__${i.index}__].id}" class="btn btn-danger ms-2">Delete</button>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
 
-            <div class="d-grid col-8 mx-auto mt-4">
-                <input type="submit" value="Update" class="btn btn-dark mt-3"/>
+                <div class="d-grid col-8 mx-auto mt-4">
+                    <input type="submit" value="Update" class="btn btn-dark mt-3"/>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </body>
 </html>
