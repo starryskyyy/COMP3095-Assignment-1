@@ -92,8 +92,12 @@ public class ShoppingController {
     @PostMapping("/recipe/{recipeId}/addShopping")
     public String addIngredientToShoppingList(
             @PathVariable int recipeId,
-            @RequestParam("ingredients") List<String> selectedIngredients)
+            @RequestParam(value = "ingredients", required = false) List<String> selectedIngredients)
     {
+        if (selectedIngredients == null) {
+            return "redirect:/recipe/" + recipeId + "/addShopping?error";
+        }
+
         // Getting currently logged-in user
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();

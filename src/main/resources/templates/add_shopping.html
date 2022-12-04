@@ -35,9 +35,12 @@
                             <hr>
                         </div>
                     </div>
-                <div class="d-grid col-6 mx-auto mt-1">
-                    <input type="submit" value="Add to Shopping Cart" class="btn btn-dark mt-3 rounded-pill"/>
-                </div>
+                    <div class="alert alert-danger text-center mt-3" th:if="${param.error}" >
+                        Please select ingredients to create a shopping list!
+                    </div>
+                    <div class="d-grid col-6 mx-auto mt-1">
+                        <input type="submit" value="Add to Shopping Cart" class="btn btn-dark mt-3 rounded-pill"/>
+                    </div>
                 </div>
 
             </form>
