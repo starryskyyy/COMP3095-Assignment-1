@@ -41,4 +41,8 @@ public class ShoppingService {
 
         shoppingRepository.save(shopping);
     }
+
+    public Shopping updateShopping(Shopping shopping) {
+        return shoppingRepository.save(shopping);
+    }
 }

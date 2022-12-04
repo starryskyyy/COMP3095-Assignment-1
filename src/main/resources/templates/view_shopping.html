@@ -13,6 +13,20 @@
                     <h2 class="text-center"><b>Shopping List for Recipe <div th:text="${shopping.recipe.name}"></div></b></h2>
                 </div>
                 <div class="bg-light border border-2" style="padding: 3rem 3rem 2rem 3rem;">
+                    <div th:if="${recipeIngredients.size()} > 0" class="row justify-content-center">
+                        <div class="row">
+                            <div class="col">
+                                <select id="ingredient" name="ingredientId" class="form-control mb-3" required>
+                                    <option value="" disabled selected hidden>Select Ingredient</option>
+                                    <option th:each="ingredient : ${recipeIngredients}" th:value="*{ingredient.id}" th:text="${ingredient.name}"></option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-success" type="submit">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row justify-content-center" th:each="ingredient : ${shopping.ingredients}">
                         <div class="row" style="height: 50px; display: flex; align-items: center; text-align: center;">
                             <div class="col">

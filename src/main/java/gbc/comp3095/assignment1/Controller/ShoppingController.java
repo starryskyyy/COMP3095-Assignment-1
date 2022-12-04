@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,9 +47,41 @@ public class ShoppingController {
 
     @GetMapping("/viewMyShoppingLists/{id}")
     public String viewShoppingList(Model model, @PathVariable int id) {
-        model.addAttribute("shopping", shoppingService.getShoppingById(id));
+        Shopping shopping = shoppingService.getShoppingById(id);
+        List<Ingredient> shoppingIngredients = shopping.getIngredients();
+        List<Ingredient> recipeIngredients = shopping.getRecipe().getIngredients();
+        List<Ingredient> ingredients = new ArrayList<>();
+
+        for (Ingredient rIngredient : recipeIngredients) {
+            boolean isPresent = shoppingIngredients.stream().anyMatch(ingredient -> ingredient.getId() == rIngredient.getId());
+
+            if (!isPresent) ingredients.add(rIngredient);
+        }
+
+        model.addAttribute("shopping", shopping);
+        model.addAttribute("recipeIngredients", ingredients);
 
         return "view_shopping";
+    }
+
+    @PostMapping("/viewMyShoppingLists/{shoppingId}")
+    public String addIngredientToShoppingList(@PathVariable int shoppingId, @RequestParam("ingredientId") int ingredientId) {
+        Shopping shopping = shoppingService.getShoppingById(shoppingId);
+        List<Ingredient> shoppingIngredients = shopping.getIngredients();
+        List<Ingredient> recipeIngredients = shopping.getRecipe().getIngredients();
+
+        // adding new ingredient to shopping ingredients
+        Ingredient newIngredient = null;
+        for (Ingredient rIngredient : recipeIngredients) {
+            if (rIngredient.getId() == ingredientId) newIngredient = rIngredient;
+        }
+        shoppingIngredients.add(newIngredient);
+        shopping.setIngredients(shoppingIngredients);
+
+        // update
+        shoppingService.updateShopping(shopping);
+
+        return "redirect:/viewMyShoppingLists/" + shoppingId;
     }
 
     @GetMapping("/viewMyShoppingLists/{id}/export")
