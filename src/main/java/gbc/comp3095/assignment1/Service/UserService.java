@@ -13,13 +13,11 @@ package gbc.comp3095.assignment1.Service;
 import gbc.comp3095.assignment1.Entity.Event;
 import gbc.comp3095.assignment1.Entity.Plan;
 import gbc.comp3095.assignment1.Entity.Recipe;
-import gbc.comp3095.assignment1.Repository.EventRepository;
 import gbc.comp3095.assignment1.Repository.UserRepository;
 import gbc.comp3095.assignment1.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +33,6 @@ public class UserService {
 
     public List<User> createUsers(List<User> users){
         return userRepository.saveAll(users);
-    }
-
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
     }
 
     public List<User> getUsers() {
@@ -100,7 +94,6 @@ public class UserService {
     }
 
     public User addEvent(User user, Event event) {
-
         user.getEvents().add(event);
         userRepository.save(user);
 

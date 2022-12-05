@@ -1,3 +1,13 @@
+/*********************************************************************************
+ * Project: RecipeShare
+ * Assignment: Assignment #2
+ * Author(s): Seunghun Yim, Danny Nguyen, Yoonhee Kim, Elizaveta Vygovskaia
+ * Student Number: 101325908, 100882851, 101277278, 101337015
+ * Date: December 4th, 2022
+ * Description: It is a controller class for Event entity.
+ * All CRUD functions related to event are implemented
+ *********************************************************************************/
+
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Event;
@@ -16,15 +26,12 @@ import gbc.comp3095.assignment1.Repository.EventRepository;
 
 @Controller
 public class EventController {
-
     @Autowired
     private EventService eventService;
     @Autowired
     private RecipeService recipeService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private EventRepository eventRepository;
 
     @GetMapping("/viewEvent")
     public String viewEvent(Model model) {

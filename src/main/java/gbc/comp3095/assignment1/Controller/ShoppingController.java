@@ -1,3 +1,13 @@
+/*********************************************************************************
+ * Project: RecipeShare
+ * Assignment: Assignment #2
+ * Author(s): Seunghun Yim, Danny Nguyen, Yoonhee Kim, Elizaveta Vygovskaia
+ * Student Number: 101325908, 100882851, 101277278, 101337015
+ * Date: December 4th, 2022
+ * Description: It is a controller class for shopping entity.
+ * All CRUD functions related to shopping list are implemented
+ *********************************************************************************/
+
 package gbc.comp3095.assignment1.Controller;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
@@ -15,7 +25,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;

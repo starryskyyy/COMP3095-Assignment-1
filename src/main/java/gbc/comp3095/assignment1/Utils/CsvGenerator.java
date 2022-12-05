@@ -1,3 +1,12 @@
+/*********************************************************************************
+ * Project: RecipeShare
+ * Assignment: Assignment #2
+ * Author(s): Seunghun Yim, Danny Nguyen, Yoonhee Kim, Elizaveta Vygovskaia
+ * Student Number: 101325908, 100882851, 101277278, 101337015
+ * Date: December 4th, 2022
+ * Description: It is a custom class that creates a csv file that includes ingredient information
+ *********************************************************************************/
+
 package gbc.comp3095.assignment1.Utils;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;

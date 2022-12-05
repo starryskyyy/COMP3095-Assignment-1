@@ -1,3 +1,13 @@
+/*********************************************************************************
+ * Project: RecipeShare
+ * Assignment: Assignment #2
+ * Author(s): Seunghun Yim, Danny Nguyen, Yoonhee Kim, Elizaveta Vygovskaia
+ * Student Number: 101325908, 100882851, 101277278, 101337015
+ * Date: December 4th, 2022
+ * Description: This Java file is created for the shopping functions where it'll have functions like
+ * getting, creating, deleting and updating the shopping
+ *********************************************************************************/
+
 package gbc.comp3095.assignment1.Service;
 
 import gbc.comp3095.assignment1.Entity.Ingredient;
