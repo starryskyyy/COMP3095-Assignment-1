@@ -9,20 +9,21 @@
     <div class="container">
         <div class="container mx-auto" style="width: 700px; margin: 5rem 0 6rem 0;">
             <form method="POST">
-                <div class="pb-4">
-                    <h2 class="text-center"><b>Shopping List for Recipe <div th:text="${shopping.recipe.name}"></div></b></h2>
+                <div class="pb-1">
+                    <h2 class="text-center"><b>Shopping List for the Recipe</b></h2>
                 </div>
-                <div class="bg-light border border-2" style="padding: 3rem 3rem 2rem 3rem;">
+                <div class="text-center fs-4" th:text="': '+${shopping.recipe.name}"></div>
+                <div class="bg-light border border-2" style="padding: 3rem 3rem 2rem 3rem; margin-top: 1.5rem;">
                     <div th:if="${recipeIngredients.size()} > 0" class="row justify-content-center">
-                        <div class="row">
-                            <div class="col">
+                        <div class="row justify-content-center">
+                            <div class="col-4">
                                 <select id="ingredient" name="ingredientId" class="form-control mb-3" required>
                                     <option value="" disabled selected hidden>Select Ingredient</option>
                                     <option th:each="ingredient : ${recipeIngredients}" th:value="*{ingredient.id}" th:text="${ingredient.name}"></option>
                                 </select>
                             </div>
-                            <div class="col">
-                                <button class="btn btn-success" type="submit">Add</button>
+                            <div class="col-2">
+                                <button class="btn btn-dark" type="submit">Add</button>
                             </div>
                         </div>
                     </div>
